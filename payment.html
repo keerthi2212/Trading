@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+  *{
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+    }
+    header.header_tre{
+      width: 100%;
+      margin: auto;
+      position: fixed;
+      z-index: 9999999999;
+    }
+    nav.nav_head{
+      width: 100%;
+      padding-left:30px;
+      padding-right: 30px;
+      margin: auto;
+      display: flex;
+      background-color: whitesmoke;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999999999;
+      box-shadow: 1px 3px 5px 1px #ccc;
+    }
+    img.img_rty{
+      width: 150px;
+      height: 80px;
+    }
+    /* Scroll Container */
+    
+    .scroll-wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px;
+      position: relative; /* Important for positioning the arrows */
+    }
+
+    .scroll-content {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      min-width: max-content;
+    }
+
+    .ida_ok {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+     .ida_ok:hover {
+      transform: translateY(-5px);
+    }
+
+    .scroll-wrapper::-webkit-scrollbar {
+      height: 0px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    img.img_hty{
+  width: 120px;
+  height: 120px;
+border-radius: 50%;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+div.grid_img_search{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-right: 50px;
+ }
+    
+    .bars {
+      cursor: pointer;
+      width: 30px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .line {
+      width: 100%;
+      height: 5px;
+      background-color: #000;
+      border-radius: 5px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .open_bar {
+      position: fixed;
+      top: 12px;
+      left: -350px;
+      width: 270px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 0px 2px 5px 3px #ccc;
+      color: #fff;
+      transition: left 0.3s ease-in-out;
+      padding: 10px;
+      z-index: -1;
+      margin-top: 80px;
+      text-align: center;
+      border-radius: 10px;
+      overflow: scroll;
+      padding-bottom: 100px;
+    }
+    .open_bar.open {
+      left: 0;
+    }
+    .open_bar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .open_bar li {
+      position: relative;
+      font-size: 16px;
+      margin: 15px 0;
+      font-family: serif;
+    }
+    .open_bar li a {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #000;
+      transform: scale(1);
+      background-image: linear-gradient(255deg, rgba(172,94,233), #4E0AAC);
+      color: #fff;
+      font-weight: 700;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .hover-eff{
+      background-image: linear-gradient(255deg, #4E0AAC 10%, rgba(172,94,233)) !important;
+      transform: scale(1.05) !important ;
+    }
+    .open_bar li a:hover {
+      transform: scale(1.05);
+    }
+    .signout {
+      background: #d00412 !important;
+      color: #fff !important;
+    }
+    .open_bar .close_btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #9ACBD0;
+      color: #fff;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .open_bar .close_btn:hover {
+      background-color: #7fa2a4;
+    }
+    h3.user {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+    h3.ref {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-size: 17px;
+      font-weight: 400;
+    }
+    span.user {
+      color: #000;
+    }
+    .spaces {
+      transition: transform 0.3s ease;
+    }
+    .spaces.move-left {
+      width: 81%;
+      margin: auto;
+      margin-left: 230px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+    .spaces.move-left .mon-tr {
+      font-size: 16px;
+    }
+    .spaces.move-left .ghuf_h {
+      font-size: 12.5px;
+    }
+    .spaces.move-left .sub-mont {
+      font-size: 14px;
+    }
+    .spaces.move-left .de-da {
+      font-size: 13px;
+    }
+    .spaces.move-left .month_uiy {
+      font-size: 15px;
+    }
+    .imgopili.move-left {
+      width: 80% !important;
+      margin: auto;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+    .payment-way.move-left {
+      width: 81%;
+      margin: auto;
+      margin-left: 2050px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+
+    div.hiopif {
+      width: 100%;
+      margin: auto;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    div.ind {
+      width: 95%;
+      margin: auto;
+    }
+    div.hiopif.move-left {
+      margin-left: 100px;
+    }
+    div.hiopif.move-left div.ind {
+      width: 75%;
+    }
+    .Demo_se.move-left {
+      margin-left: 220px;
+    }
+
+    .container_side {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            gap: 50px;
+        }
+
+        .left-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 45%;
+        }
+
+        .right-side {
+            width: 45%;
+        }
+
+        .graph {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 250px; 
+        }
+
+        canvas {
+            width: 100% !important; /* Make canvas take up 100% width */
+            height: 100% !important; /* Make canvas take up 100% height */
+        }
+    .open_mod {
+                      display: none;
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      background-color: rgba(0,0,0,0.5);
+                      justify-content: center;
+                      align-items: center;
+                      z-index: 1000;
+                  }
+
+                  /* Modal Content */
+                  .model_con {
+                      background-color: #ffffff;
+                      padding: 20px;
+                      border-radius: 12px;
+                      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                      width: 420px;
+                      text-align: center;
+                  }
+
+                  /* Modal Heading */
+                  .Model_na {
+                      font-size: 20px;
+                      font-weight: 600;
+                      color: #222;
+                      margin-bottom: 20px;
+                  }
+
+                  /* Modal Buttons */
+                  .modal-buttons {
+                      display: flex;
+                      justify-content: center;
+                      gap: 15px;
+                  }
+                    .modal-no{
+                      background-color: #d00412 !important;
+                    }
+                  .modal-no, .modal-yes {
+                      padding: 10px 20px;
+                      background-color: #461B9B;
+                      color: #ffffff;
+                      border-radius: 8px;
+                      font-size: 16px;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+                  }
+
+                  .modal-no:hover {
+                      background-color: #6B46B2;
+                  }
+
+                  .modal-yes:hover {
+                      background-color: #6B46B2;
+                  }
+img.img_hty{
+  width: 80px;
+  height: 80px;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+
+
+</style>
+<body>
+  <div class="view">
+    <div class="helo">
+      <div class="hai">
+        <header class="header_tre">
+          <nav class="nav_head">
+            <div class="grid_img_search">
+              <div class="img_na">
+                <img class="img_rty" src="ATS Logo.jpeg" title="title" />
+              </div>
+              <div class="bars" id="hamburger">
+                <div class="line line1"></div>
+                <div class="line line2"></div>
+                <div class="line line3"></div>
+              </div>
+            </div>
+            <div class="scroll-wrapper" id="scrollContainer">
+              <div class="scroll-content">
+                <a class="ida_ok" href="monthlyrev.html"><i class="fas fa-calendar-alt"></i> Monthly Revenue </a>
+                <a class="ida_ok" href="monthlycommision.html"><i class="fas fa-coins"></i> Monthly Commission </a>
+                <a class="ida_ok" href="dailyrev.html"><i class="fas fa-clock"></i> Daily Revenue </a>
+                <a class="ida_ok" href="dailycommision.html"><i class="fas fa-dollar-sign"></i> Daily Commission </a>
+                <a class="ida_ok" href="monthlysubscribers.html"><i class="fas fa-users"></i> Monthly Subscribers Numbers </a>
+                <a class="ida_ok" href="dailypaidsubsriberslist.html"><i class="fas fa-user-check"></i> Daily Subscribers Numbers</a>
+                <a class="ida_ok" href="dailydemosubscriberslistdemo.html"><i class="fas fa-user-plus"></i> Daily Demo Subscribers Numbers </a>
+              </div>
+            </div>
+            <div class="open_bar" id="openBar">
+              <ul class="ul_hammer">
+                <div class="hai_use">
+                  <img class="img_hty" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww" alt="Female User Icon" itemprop="contentUrl" />
+                </div>
+                <ul>
+                  <li class="open_hammer">
+                    <h3 class="user">
+                      <span class="user"><i class="fas fa-user"></i> User id:</span> Astro16
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <h3 class="ref">
+                      <span class="user"><i class="fas fa-link"></i> Referral id:</span> As897R3
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer  " href="mainuser.html"><i class="fas fa-users"></i> Main Users List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="tablecontrol.html"><i class="fas fa-table"></i> Table Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer " href="dailypaidsubsriberslist.html"><i class="fas fa-calendar-day"></i> Daily Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer  " href="totalpaidsubscriberslist.html"><i class="fas fa-calendar-alt"></i> Total Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer  " href="dailylistdemo.html"><i class="fas fa-clipboard-list"></i> Daily List Demo Subscribers</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer hover-eff " href="payment.html"><i class="fas fa-credit-card"></i> Payment Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="signinpagecontrol.html"><i class="fas fa-key"></i> Sign in Page Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="index.html"><i class="fas fa-home"></i> Home</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer signout" href="#"><i class="fas fa-sign-out-alt"></i> Signout</a>
+                  </li>
+                </ul>
+                <!-- <button class="close_btn" id="closeBar">X</button> -->
+              </ul>
+            </div>
+          </nav>
+        </header>
+      </div>
+    </div>
+  </div>
+
+  <div class="open_mod" id="signOutModal">
+      <div class="model_con">
+          <h1 class="Model_na">Are you sure you want to logout?</h1>
+          <div class="modal-buttons">
+            <span class="modal-yes">Yes</span>
+              <span class="modal-no">No</span>
+          </div>
+      </div>
+  </div>
+
+  <script>
+    // Get elements
+    const signOutLink = document.querySelector('.signout');
+    const signOutModal = document.getElementById('signOutModal');
+    const modalNo = document.querySelector('.modal-no');
+    const modalyes = document.querySelector('.modal-yes');
+    
+    // Open modal on click
+    signOutLink.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        signOutModal.style.display = 'flex';
+    });
+
+    // Close modal on 'No' click
+    modalNo.addEventListener('click', () => {
+        signOutModal.style.display = 'none';
+    });
+    modalyes.addEventListener('click', () => {
+        signOutModal.style.display = 'none';
+    });
+
+    // Close modal if clicking outside of modal content
+    window.addEventListener('click', (e) => {
+        if (e.target === signOutModal) {
+            signOutModal.style.display = 'none';
+        }
+    });
+</script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+      .container_fo {
+  width: 100%;
+  margin: auto;
+  padding: 25px;
+  transition: margin-left 0.3s ease-in-out; 
+}
+.payment_modes_fu {
+  transition: all 0.3s ease-in-out;
+  margin-left: 0;
+  width: 100%;
+}
+
+.payment_modes_fu.move-left {
+  margin-left: 250px !important;
+  width: 70%;
+}
+
+
+/* Other form styles */
+.container_fo form {
+  width: 80%;
+  margin: auto;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+/* Flexbox layout for rows */
+.container_fo form .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.container_fo form .row .col {
+  flex: 1 1 250px;
+}
+
+.title {
+  font-size: 40px;
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+  text-align: center;
+}
+
+img.card {
+  text-align: center;
+  width: 40%;
+  height: 30px;
+  margin-top: 5px;
+  filter: drop-shadow(0 0 1px #000);
+}
+
+div.subnI-i {
+  display: flex;
+  justify-content: center;
+}
+.submit_btn {
+  width: 50%;
+  padding: 12px;
+  font-size: 17px;
+  background: linear-gradient(135deg, #6973DA, #A759E6);
+  color: #fff;
+  margin-top: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  font-size: 18px;
+  font-weight: 700;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+}
+
+.submit_btn:hover {
+  transform: scale(1.01);
+  box-shadow: 1px 5px 10px 1px #ccc;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  display: none;
+}
+
+div.gpay {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+input[type=radio] {
+  width: 18px;
+  height: 18px;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 2px solid #000;
+  border-radius: 50%;
+  outline: none;
+  background-color: white;
+}
+
+input[type=radio]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+input[type=radio]:checked::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: white;
+  margin: 4px auto;
+}
+
+img.gpay {
+  width: 60px;
+}
+
+img.ampay {
+  width: 80px;
+  margin-top: 8px;
+}
+
+div.giopay {
+  margin-top: -10px;
+}
+
+.card_down {
+  margin-top: 10px;
+  font-family: 'Poppins', sans-serif;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+  margin-bottom: 10px;
+}
+
+div.gpay {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.crdnam {
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+  margin-bottom: 3px;
+}
+
+#cardName,
+#cardNum,
+#expMonth{
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 16px;
+}
+#expYear,
+#cvv {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.inputBox {
+  margin: 10px 0px;
+}
+
+div.flex_csrd {
+  display: flex;
+  width: 100%;
+  gap: 0px 20px;
+}
+
+.boxzsio {
+  width: 100%;
+  margin-top: -5px;
+}
+
+div.banner-header{
+          /* background: linear-gradient(135deg, #003366, #607d8b); */
+          background-image: url("https://assets.kpmg.com/is/image/kpmg/kpmg-texture-au-dark-blue-purple-pink-circles:cq5dam.web.2000.500");
+background-position: center center;
+background-size: cover; 
+object-fit: fill;
+font-weight: 700;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+border-radius: 5px;
+font-size: 16px;
+transition: background-color 0.3s ease, transform 0.3s ease;
+height: auto; 
+width: auto;
+box-shadow: 1px 1px 3px #ccc;
+  padding: 12px 24px;
+  border-radius: 5px;
+}
+    h1.banner-dashboard{
+      text-align: center;
+      color: #fff;
+    }
+
+    div.hover_po{
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      align-items: center;
+    }
+    div.img_pro{
+      display: flex;
+      justify-content: center;
+    }
+
+    .qr-box {
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#qr-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 8px;
+   mix-blend-mode: multiply; 
+}
+.name_pl{
+  
+}
+.qr-label,
+.qr-number {
+  background-color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center */
+  text-align: center;
+}
+.qr-label{
+  color: #d00412;
+}
+.qr-number{
+  color: #007bff;
+}
+div.details_lis{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+  </style> 
+  
+ 
+
+  <body>
+    <div class="payment_cont">
+      <div class="container_fo">
+          <form action="#" class="payment_modes_fu" id="paymentForm">
+              <div class="row">
+                  <div class="col">
+                    <div class="banner-header">
+                      <h1 class="banner-dashboard">Payment Mode</h1>
+                    </div>
+                      <div class="inputBox">
+                          <div class="pays">
+                              <div class="pay_list">
+                                  <div class="list_radio">
+                                      <!-- Google Pay -->
+                                      <div class="hover_po">
+
+                                        <div class="gpay">
+                                          <div class="radio_bt">
+                                              <input type="radio" name="payment_option" id="gpay1" />
+                                          </div>
+                                          <div class="label_gp">
+                                              <label class="gpay_l" for="gpay1">
+                                                  <img class="gpay" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/330px-Google_Pay_Logo.svg.png" />
+                                              </label>
+                                          </div>
+                                      </div>
+          
+                                      <!-- PhonePe -->
+                                      <div class="gpay giopay ">
+                                          <div class="radio_bt">
+                                              <input type="radio" name="payment_option" id="gpay2" />
+                                          </div>
+                                          <div class="label_gp">
+                                              <label class="gpay_l" for="gpay2">
+                                                  <img class="gpay" src="https://cdn.worldvectorlogo.com/logos/phonepe-1.svg" />
+                                              </label>
+                                          </div>
+                                      </div>
+  
+                                       <!-- Paytm -->
+                                       <div class="gpay giopay ">
+                                          <div class="radio_bt">
+                                              <input type="radio" name="payment_option" id="gpay3" />
+                                          </div>
+                                          <div class="label_gp">
+                                              <label class="gpay_l" for="gpay2">
+                                                  <img class="gpay" src="https://upload.wikimedia.org/wikipedia/commons/4/42/Paytm_logo.png?20170729032638" />
+                                              </label>
+                                          </div>
+                                      </div>
+          
+                                      <!-- Amazon Pay -->
+                                      <div class="gpay">
+                                          <div class="radio_bt">
+                                              <input type="radio" name="payment_option" id="gpay4" />
+                                          </div>
+                                          <div class="label_gp">
+                                              <label class="gpay_l" for="gpay5">
+                                                  <img class="ampay" src="https://tinuiti.com/wp-content/uploads/legacysitecontent/cpcs/posts_01/2018/12/23161707/Amazon-Pay-logo-1024x197.png" />
+                                              </label>
+                                          </div>
+                                      </div>
+          
+                                      <!-- Credit Card -->
+                                      <div class="gpay">
+                                          <div class="radio_bt">
+                                              <input type="radio" name="payment_option" id="gpay5" />
+                                          </div>
+                                          <div class="label_gp">
+                                              <label class="gpay_l" for="gpay4">
+                                                  <label class="card_down" for="name">Card Accepted:</label>
+                                              </label>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      <div id="qr-display" class="qr-box" style="display: none;">
+                                        <img id="qr-image" src="" alt="QR Code" />
+                                        <div class="name_pl">
+                                          <div id="qr-label" class="qr-label"></div>
+                                        </div>
+                                        <div class="number_pl">
+                                          <div id="qr-number" class="qr-number"></div>
+                                        </div>
+                                      </div>
+                                      <script>
+                                        const qrMap = {
+                                          gpay1: {
+                                            src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png',
+                                            name: 'Google Pay',
+                                             number: '9876582909@okicici'
+                                          },
+                                          gpay2: {
+                                            src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png',
+                                            name: 'PhonePe',
+                                             number: '9876582909@ybl'
+                                          },
+                                          gpay3: {
+                                            src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png',
+                                            name: 'Paytm',
+                                             number: '9876582909@paytm'
+                                          },
+                                          gpay4: {
+                                            src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png',
+                                            name: 'Amazon Pay',
+                                             number: '9876582909@apl'
+                                          }
+                                        };
+                                      
+                                        document.querySelectorAll('input[name="payment_option"]').forEach((radio) => {
+                                          radio.addEventListener('change', function () {
+                                            const selectedId = this.id;
+                                            const qrInfo = qrMap[selectedId];
+                                            const qrBox = document.getElementById('qr-display');
+                                            const qrImg = document.getElementById('qr-image');
+                                            const qrLabel = document.getElementById('qr-label');
+                                            const qrNumber = document.getElementById('qr-number');
+                                            const cardImg = document.querySelector('.img_po');
+                                      
+                                            if (qrInfo) {
+                                              qrImg.src = qrInfo.src;
+                                              qrLabel.textContent = qrInfo.name;
+                                              qrNumber.textContent = qrInfo.number;
+                                              qrBox.style.display = 'block';
+                                              cardImg.style.display = 'none'; 
+                                            } else {
+                                              qrBox.style.display = 'none';
+                                              cardImg.style.display = 'block'; 
+                                            }
+                                          });
+                                        });
+                                      </script>
+                                      
+                                      
+                                      <div class="img_po">
+                                        <div class="img_pro"><img class="card" src="https://media.geeksforgeeks.org/wp-content/uploads/20240715140014/Online-Payment-Project.webp" alt="credit/debit card image"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+          
+                      <div class="detils_card" style="display: none;">
+                          <div class="details_lis">
+                              <div class="details_der">
+                                <div class="inputBox">
+                                  <label class="crdnam" for="cardName">Name On Card:</label><br>
+                                  <input type="text" id="cardName" name="cardName" placeholder="Enter card name" required>
+                                </div>
+              
+                              <div class="inputBox">
+                                  <label class="crdnam" for="cardNum">Credit Card Number:</label><br>
+                                  <input type="text" id="cardNum"  name="cardNum" placeholder="1111-2222-3333-4444" maxlength="19" required>
+                              </div>
+              
+                              <div class="inputBox">
+                                  <label class="crdnam" for="">Exp Month:</label><br>
+                                  <select id="expMonth">
+                                      <option value="">Choose month</option>
+                                      <option value="January">January</option>
+                                      <option value="February">February</option>
+                                      <option value="March">March</option>
+                                      <option value="April">April</option>
+                                      <option value="May">May</option>
+                                      <option value="June">June</option>
+                                      <option value="July">July</option>
+                                      <option value="August">August</option>
+                                      <option value="September">September</option>
+                                      <option value="October">October</option>
+                                      <option value="November">November</option>
+                                      <option value="December">December</option>
+                                  </select>
+                              </div>
+              
+                              <div class="flex_csrd">
+                                  <div class="inputBox  boxzsio">
+                                      <label class="crdnam" for="">Exp Year:</label><br>
+                                      <select id="expYear">
+                                          <option value="">Choose Year</option>
+                                          <option value="2023">2023</option>
+                                          <option value="2024">2024</option>
+                                          <option value="2025">2025</option>
+                                          <option value="2026">2026</option>
+                                          <option value="2027">2027</option>
+                                      </select>
+                                  </div>
+              
+                                  <div class="inputBox   boxzsio">
+                                      <label class="crdnam" for="cvv">CVV</label><br>
+                                      <input type="password" name="cvv" id="cvv" placeholder="123" required>
+                                  </div>
+                              </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          
+              <div class="subnI-i">
+                <input type="submit" value="Proceed to Checkout" class="submit_btn">
+              </div>
+          </form>
+          
+  
+      </div>
+    </div>  
+      <script>
+         document.addEventListener("DOMContentLoaded", function() {
+      const paymentForm = document.getElementById('paymentForm');
+      const cardDetails = document.querySelector('.detils_card');
+      const radios = document.getElementsByName('payment_option');
+      const submitButton = paymentForm.querySelector('.submit_btn');
+  
+      // Function to show or hide the card details based on payment option selected
+      function toggleCardDetails() {
+          const selectedOption = document.querySelector('input[name="payment_option"]:checked');
+          if (selectedOption && selectedOption.id === 'gpay5') {
+              cardDetails.style.display = 'block';
+          } else {
+              cardDetails.style.display = 'none';
+          }
+      }
+  
+      // Validate card details before submitting
+      function validateCardDetails() {
+          const cardName = document.getElementById('cardName').value;
+          const cardNum = document.getElementById('cardNum').value;
+          const expMonth = document.getElementById('expMonth').value;
+          const expYear = document.getElementById('expYear').value;
+          const cvv = document.getElementById('cvv').value;
+  
+          // Check for empty fields
+          if (!cardName || !cardNum || !expMonth || !expYear || !cvv) {
+              alert('Please fill in all card details.');
+              return false;
+          }
+  
+          // Check for valid card number (12 digits format)
+          const cardNumPattern = /^\d{12,19}$/;  // Checks for 12 to 19 digit card numbers
+          if (!cardNumPattern.test(cardNum)) {
+              alert('Please enter a valid credit card number (12 to 19 digits).');
+              return false;
+          }
+  
+          // Check for valid CVV (3 digits)
+          const cvvPattern = /^\d{3,4}$/;  // Assuming 3 or 4 digit CVV (varies per card type)
+          if (!cvvPattern.test(cvv)) {
+              alert('Please enter a valid CVV (3 or 4 digits).');
+              return false;
+          }
+  
+          return true;
+      }
+  
+      // Event listener for radio buttons change
+      radios.forEach(radio => {
+          radio.addEventListener('change', function() {
+              toggleCardDetails();
+          });
+      });
+  
+      // Event listener for form submission
+      paymentForm.addEventListener('submit', function(event) {
+          const selectedOption = document.querySelector('input[name="payment_option"]:checked');
+          console.log(selectedOption);  // Debugging to see if selectedOption is correct
+          if (!selectedOption) {
+              alert('Please select a payment option.');
+              event.preventDefault(); // Prevent form submission
+          } else if (selectedOption.id === 'gpay5') {
+              // Validate card details if "card" option is selected
+              if (!validateCardDetails()) {
+                  event.preventDefault(); // Prevent form submission if validation fails
+              }
+          }
+      });
+  
+      // Initial check to hide or show card details
+      toggleCardDetails();
+  });
+  
+      </script>
+
+<script>
+  const paymentModesFu = document.querySelector(".payment_modes_fu");
+
+// Open by default on page load
+openBar.classList.add("open");
+hamburger.classList.add("open");
+if (paymentModesFu) paymentModesFu.classList.add("move-left");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("open");
+  openBar.classList.toggle("open");
+  
+  if (paymentModesFu) {
+    paymentModesFu.classList.toggle("move-left");
+  }
+});
+
+</script>
+
+
+ </body>
+ </html>

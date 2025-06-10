@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Total Paid Subscribers List</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+   *{
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+    }
+    header.header_tre{
+      width: 100%;
+      margin: auto;
+      position: fixed;
+      z-index: 9999999999;
+    }
+    nav.nav_head{
+      width: 100%;
+      padding-left:30px;
+      padding-right: 30px;
+      margin: auto;
+      display: flex;
+      background-color: whitesmoke;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999999999;
+      box-shadow: 1px 3px 5px 1px #ccc;
+    }
+    img.img_rty{
+      width: 150px;
+      height: 80px;
+    }
+    /* Scroll Container */
+    
+    .scroll-wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px;
+      position: relative; /* Important for positioning the arrows */
+    }
+
+    .scroll-content {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      min-width: max-content;
+    }
+
+    .ida_ok {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+     .ida_ok:hover {
+      transform: translateY(-5px);
+    }
+
+    .scroll-wrapper::-webkit-scrollbar {
+      height: 0px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    img.img_hty{
+  width: 120px;
+  height: 120px;
+border-radius: 50%;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+div.grid_img_search{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-right: 50px;
+ }
+    
+    .bars {
+      cursor: pointer;
+      width: 30px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .line {
+      width: 100%;
+      height: 5px;
+      background-color: #000;
+      border-radius: 5px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .open_bar {
+      position: fixed;
+      top: 12px;
+      left: -350px;
+      width: 270px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 0px 2px 5px 3px #ccc;
+      color: #fff;
+      transition: left 0.3s ease-in-out;
+      padding: 10px;
+      z-index: -1;
+      margin-top: 80px;
+      text-align: center;
+      border-radius: 10px;
+      overflow: scroll;
+      padding-bottom: 100px;
+    }
+    .open_bar.open {
+      left: 0;
+    }
+    .open_bar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .open_bar li {
+      position: relative;
+      font-size: 16px;
+      margin: 15px 0;
+      font-family: serif;
+    }
+    .open_bar li a {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #000;
+      transform: scale(1);
+      background-image: linear-gradient(255deg, rgba(172,94,233), #4E0AAC);
+      color: #fff;
+      font-weight: 700;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .hover-eff{
+      background-image: linear-gradient(255deg, #4E0AAC 10%, rgba(172,94,233)) !important;
+      transform: scale(1.05) !important ;
+    }
+    .open_bar li a:hover {
+      transform: scale(1.05);
+    }
+    .signout {
+      background: #d00412 !important;
+      color: #fff !important;
+    }
+    .open_bar .close_btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #9ACBD0;
+      color: #fff;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .open_bar .close_btn:hover {
+      background-color: #7fa2a4;
+    }
+    h3.user {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+    h3.ref {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-size: 17px;
+      font-weight: 400;
+    }
+    span.user {
+      color: #000;
+    }
+    .spaces {
+      transition: transform 0.3s ease;
+    }
+    .spaces.move-left {
+      width: 81%;
+      margin: auto;
+      margin-left: 230px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+    .spaces.move-left .mon-tr {
+      font-size: 16px;
+    }
+    .spaces.move-left .ghuf_h {
+      font-size: 12.5px;
+    }
+    .spaces.move-left .sub-mont {
+      font-size: 14px;
+    }
+    .spaces.move-left .de-da {
+      font-size: 13px;
+    }
+    .spaces.move-left .month_uiy {
+      font-size: 15px;
+    }
+    .imgopili.move-left {
+      width: 80% !important;
+      margin: auto;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+    .payment-way.move-left {
+      width: 81%;
+      margin: auto;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+
+    div.hiopif {
+      width: 100%;
+      margin: auto;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    div.ind {
+      width: 95%;
+      margin: auto;
+    }
+    div.hiopif.move-left {
+      margin-left: 100px;
+    }
+    div.hiopif.move-left div.ind {
+      width: 75%;
+    }
+    .Demo_se.move-left {
+      margin-left: 220px;
+    }
+
+    .container_side {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            gap: 50px;
+        }
+
+        .left-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 45%;
+        }
+
+        .right-side {
+            width: 45%;
+        }
+
+        .graph {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 250px; 
+        }
+
+        canvas {
+            width: 100% !important; /* Make canvas take up 100% width */
+            height: 100% !important; /* Make canvas take up 100% height */
+        }
+    .open_mod {
+                      display: none;
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      background-color: rgba(0,0,0,0.5);
+                      justify-content: center;
+                      align-items: center;
+                      z-index: 1000;
+                  }
+
+                  /* Modal Content */
+                  .model_con {
+                      background-color: #ffffff;
+                      padding: 20px;
+                      border-radius: 12px;
+                      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                      width: 420px;
+                      text-align: center;
+                  }
+
+                  /* Modal Heading */
+                  .Model_na {
+                      font-size: 20px;
+                      font-weight: 600;
+                      color: #222;
+                      margin-bottom: 20px;
+                  }
+
+                  /* Modal Buttons */
+                  .modal-buttons {
+                      display: flex;
+                      justify-content: center;
+                      gap: 15px;
+                  }
+                    .modal-no{
+                      background-color: #d00412 !important;
+                    }
+                  .modal-no, .modal-yes {
+                      padding: 10px 20px;
+                      background-color: #461B9B;
+                      color: #ffffff;
+                      border-radius: 8px;
+                      font-size: 16px;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+                  }
+
+                  .modal-no:hover {
+                      background-color: #6B46B2;
+                  }
+
+                  .modal-yes:hover {
+                      background-color: #6B46B2;
+                  }
+img.img_hty{
+  width: 80px;
+  height: 80px;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+
+
+
+.validation-message {
+    color: #ff0000;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.input-error {
+    border-color: #ff0000 !important;
+}
+
+.input-success {
+    border-color: #00ff00 !important;
+}
+
+</style>
+<body>
+  <div class="view">
+    <div class="helo">
+      <div class="hai">
+        <header class="header_tre">
+          <nav class="nav_head">
+            <div class="grid_img_search">
+              <div class="img_na">
+                <img class="img_rty" src="ATS Logo.jpeg" title="title" />
+              </div>
+              <div class="bars" id="hamburger">
+                <div class="line line1"></div>
+                <div class="line line2"></div>
+                <div class="line line3"></div>
+              </div>
+            </div>
+           <div class="scroll-wrapper" id="scrollContainer">
+              <div class="scroll-content">
+                <a class="ida_ok" href="monthlyrev.html"><i class="fas fa-calendar-alt"></i> Monthly Revenue </a>
+                <a class="ida_ok" href="monthlycommision.html"><i class="fas fa-coins"></i> Monthly Commission </a>
+                <a class="ida_ok" href="dailyrev.html"><i class="fas fa-clock"></i> Daily Revenue </a>
+                <a class="ida_ok" href="dailycommision.html"><i class="fas fa-dollar-sign"></i> Daily Commission </a>
+                <a class="ida_ok" href="monthlysubscribers.html"><i class="fas fa-users"></i> Monthly Subscribers Numbers </a>
+                <a class="ida_ok" href="dailypaidsubsriberslist.html"><i class="fas fa-user-check"></i> Daily Subscribers Numbers</a>
+                <a class="ida_ok" href="dailydemosubscriberslistdemo.html"><i class="fas fa-user-plus"></i> Daily Demo Subscribers Numbers </a>
+              </div>
+            </div>
+            <div class="open_bar" id="openBar">
+              <ul class="ul_hammer">
+                <div class="hai_use">
+                  <img class="img_hty" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww" alt="Female User Icon" itemprop="contentUrl" />
+                </div>
+                <ul>
+                  <li class="open_hammer">
+                    <h3 class="user">
+                      <span class="user"><i class="fas fa-user"></i> User id:</span> Astro16
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <h3 class="ref">
+                      <span class="user"><i class="fas fa-link"></i> Referral id:</span> As897R3
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer  " href="mainuser.html"><i class="fas fa-users"></i> Main Users List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="tablecontrol.html"><i class="fas fa-table"></i> Table Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer " href="dailypaidsubsriberslist.html"><i class="fas fa-calendar-day"></i> Daily Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer hover-eff " href="totalpaidsubscriberslist.html"><i class="fas fa-calendar-alt"></i> Total Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="dailylistdemo.html"><i class="fas fa-clipboard-list"></i> Daily List Demo Subscribers</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="payment.html"><i class="fas fa-credit-card"></i> Payment Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="signinpagecontrol.html"><i class="fas fa-key"></i> Sign in Page Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="index.html"><i class="fas fa-home"></i> Home</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer signout" href="#"><i class="fas fa-sign-out-alt"></i> Signout</a>
+                  </li>
+                </ul>
+                <!-- <button class="close_btn" id="closeBar">X</button> -->
+              </ul>
+            </div>
+          </nav>
+        </header>
+      </div>
+    </div>
+  </div>
+
+  <div class="open_mod" id="signOutModal">
+      <div class="model_con">
+          <h1 class="Model_na">Are you sure you want to logout?</h1>
+          <div class="modal-buttons">
+            <span class="modal-yes">Yes</span>
+              <span class="modal-no">No</span>
+          </div>
+      </div>
+  </div>
+
+  <script>
+    // Get elements
+    const signOutLink = document.querySelector('.signout');
+    const signOutModal = document.getElementById('signOutModal');
+    const modalNo = document.querySelector('.modal-no');
+    const modalyes = document.querySelector('.modal-yes');
+    
+    // Open modal on click
+    signOutLink.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        signOutModal.style.display = 'flex';
+    });
+
+    // Close modal on 'No' click
+    modalNo.addEventListener('click', () => {
+        signOutModal.style.display = 'none';
+    });
+    modalyes.addEventListener('click', () => {
+        signOutModal.style.display = 'none';
+    });
+
+    // Close modal if clicking outside of modal content
+    window.addEventListener('click', (e) => {
+        if (e.target === signOutModal) {
+            signOutModal.style.display = 'none';
+        }
+    });
+</script>
+    
+    <style>
+
+        .container_mod {
+            width: 90%;
+            margin: auto;
+            /* margin: 50px auto; */
+            padding: 20px;
+            background-color: #fff;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+        }
+
+        /* th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        } */
+
+        thead th {
+  padding: 10px 5px;
+  font-weight: bold;
+  border: 1px solid #E0CFF2; /* Soft border */
+  text-align: center;
+}
+
+        tbody td {
+  padding: 10px;
+  border: 1px solid #E0CFF2;
+}
+
+
+tbody tr:hover {
+  background-color: #0d47a12e;
+}
+
+        thead {
+          background-color: #0D47A1;
+          color: #E3F2FD;
+        }
+
+        tr:hover {
+           text-decoration: none;
+            /* background-color: #ccc; 
+             color: white; */
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            border-top: none;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #3674B5;
+        }
+
+        .delete-btn {
+            background-color: #FF4C4C;
+        }
+
+        .view-btn {
+            background-color: #FF8C00;
+        }
+
+        .edit-btn:hover {
+            background-color: #578FCA;
+        }
+
+        .delete-btn:hover {
+            background-color: #FF1F1F;
+        }
+
+        .view-btn:hover {
+            background-color: #FF6600;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            overflow: scroll;
+           
+            z-index: 99999999999;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 40%;
+            margin-top: 8%;
+            margin-bottom: 1%;
+            /* text-align: center; */
+        }
+   .modal_con_u{
+    margin-top: -100px;
+   }
+        input,select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-transform: none;
+        }
+
+        .modal-footer {
+          width: 100% !important;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .close-btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            color: white;
+        }
+        .confirm-btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            width: 100% !important;
+            transition: all 0.3s ease-in-out;
+            background-color: #3674B5;
+        }
+
+        .confirm-btn:hover {
+          transform: scale(1.04) !important;
+            background-color: #3674B5;
+        }
+        .confirm-btns {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            width: 90% !important;
+            transition: all 0.3s ease-in-out;
+            background-color: #3674B5;
+            margin-top: 20px;
+        }
+
+        .confirm-btns:hover {
+          transform: scale(1.04) !important;
+            background-color: #3674B5;
+        }
+        .confirm-btd{
+          padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease-in-out;
+
+            margin-top: 20px;
+        }
+        .close-btb{
+          background-color: red;
+        }
+        .delete-btb{
+          background-color: #3674B5;
+        }
+
+        .close-btn {
+            background-color: red;
+            color: #fff;
+        }
+
+        .add-btn {
+          background-color: #0052D4;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .add-btn:hover {
+            /* background-color: #461B9B; */
+            transform: scale(1.04);
+        }
+        #noDataFound{
+            display:none; 
+            color: red; 
+            font-weight: bold; 
+            text-align: center;
+            font-size: 35px;
+            margin-top: 20px;
+        }
+        div.con_yui{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+         div.overt-f{
+          padding-top: 100px;
+          width: 100%;
+          margin: auto;
+          transition: all 0.3s ease-in-out;
+          overflow: hidden;
+         }
+         h2.edit-sub{
+          text-align: center;
+          color: #3674B5;
+         }
+         .modal-body p{
+          margin-top: 10px;
+          margin-bottom: 10px;
+         }
+         h2.edi_su{
+          text-align: center;
+          margin-bottom: 10px;
+          color: #3674B5;
+         }
+         .modal_boiu{
+          display: grid;
+          grid-template-columns: 1fr;
+
+         }
+         div.mdel_btn{
+          position: relative;
+         }
+         .close-add-data{
+          position: absolute;
+          right: 0;
+          margin-top: -10px;
+         }
+         .btn_link_co{
+          margin-left: 30px;
+         }
+         th.subs,td.subs{  /* Hide all columns from 9th onwards */
+            display: none;
+        }
+        .veiw-etails{
+        margin-top: -190px !important;
+        }
+        .overtf{
+            overflow: hidden;
+        }
+        div.banner-header{
+          /* background: linear-gradient(135deg, #003366, #607d8b); */
+          background-image: url("https://assets.kpmg.com/is/image/kpmg/kpmg-texture-au-dark-blue-purple-pink-circles:cq5dam.web.2000.500");
+background-position: center center;
+background-size: cover; 
+object-fit: fill;
+font-weight: 700;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+border-radius: 5px;
+font-size: 16px;
+transition: background-color 0.3s ease, transform 0.3s ease;
+height: auto; 
+width: auto;
+box-shadow: 1px 1px 3px #ccc;
+  padding: 12px 24px;
+  border-radius: 5px;
+}
+    h1.banner-dashboard{
+      text-align: center;
+      color: #fff;
+    }
+    .overtf{
+      overflow: hidden;
+    }
+    #search_iolk{
+      margin-left: -40px;
+      color: #461B9B;
+    }
+    h2.add-sub-f{
+            color: #0D47A1;
+            font-size: 30px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+          }
+    </style>
+    <script>
+     document.addEventListener("DOMContentLoaded", function () {
+    let table = document.querySelector("table");
+
+    table.querySelectorAll("tr").forEach(row => {
+        row.querySelectorAll(".subs").forEach(cell => {
+            cell.style.display = "none"; // Hide .subs columns
+        });
+    });
+});
+    </script>
+
+<div class="overt-f">
+    <div class="container_mod">
+      <div class="banner-header">
+        <h1 class="banner-dashboard">Total Paid Subscribers</h1>
+      </div>
+        <div class="con_yui">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search by Referral ID" oninput="searchData()" />
+                <i id="search_iolk" class="fa fa-search"></i>
+            </div>
+            <div class="button_cls">
+                <button class="add-btn" onclick="openAddModal()">Add Data</button>
+            </div>
+        </div>
+        
+        <table id="subscriptionTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>User ID</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Date</th>
+                    <th>TV ID</th>
+                    <th>Referral ID</th>
+                    <th>Subscription</th>
+                    <th>Expiry Date</th>
+                    <th>Remaining</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added -->
+            </tbody>
+        </table>
+        <div id="noDataFound">
+            <i class="fas fa-exclamation-circle"></i> No Data Found
+        </div>
+
+        <style>
+          div.graphs-con{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+            gap: 30px; 
+            margin-bottom: 30px;
+          }
+          .chart-container{
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          }
+          .adj{
+            width: 45%;
+          }
+          .adju{
+            width: 55%;
+          }
+          #lineChart,#pieChart{
+            width: 100%;
+            height: 400px !important;
+          }
+          </style>
+
+        <div class="graphs-area">
+          <div class="graphs-con">
+            <!-- Line Chart -->
+            <div class="chart-container adju">
+              <canvas id="lineChart"></canvas>
+            </div>
+            
+            <!-- Pie Chart -->
+            <div class="chart-container adj">
+              <canvas id="pieChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <script>
+        // Line Chart Data
+        const lineChartData = {
+          labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          datasets: [{
+            label: 'Engaged Users (Line)',
+            data: [80, 100, 120, 140, 160, 180, 200],
+            fill: false,
+            borderColor: '#6D67E4',
+            backgroundColor:'#6D67E4', // Light purple color for line
+            tension: 0.1,
+            borderWidth: 3
+          }]
+        };
+        
+        const lineChartConfig = {
+          type: 'bar',
+          data: lineChartData,
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: 'black'  // Dark text color for the y-axis
+                }
+              },
+              x: {
+                ticks: {
+                  color: 'black'  // Dark text color for the x-axis
+                },
+                grid: {
+                  display: true
+                }
+              }
+            }
+          }
+        };
+        
+        // Pie Chart Data
+        const pieChartData = {
+          labels: ['New Users', 'Active Users', 'Inactive Users', 'Left Users', 'Pending Users'],
+          datasets: [{
+            label: 'User Engagement by Activity',
+            data: [30, 50, 20, 10, 5], // Example data distribution
+            backgroundColor: [
+              'rgba(75, 192, 192, 0.6)', // Light green
+              'rgba(33, 150, 243, 0.6)', // Bright blue
+              'rgba(255, 159, 64, 0.6)', // Coral orange
+              'rgba(255, 99, 132, 0.6)', // Red
+              'rgba(153, 102, 255, 0.6)' // Purple
+            ],
+            borderColor: [
+              'rgba(75, 192, 192, 1)', // Dark green border
+              'rgba(33, 150, 243, 1)', // Dark blue border
+              'rgba(255, 159, 64, 1)', // Dark orange border
+              'rgba(255, 99, 132, 1)', // Dark red border
+              'rgba(153, 102, 255, 1)' // Dark purple border
+            ],
+            borderWidth: 1
+          }]
+        };
+        
+        const pieChartConfig = {
+          type: 'doughnut',
+          data: pieChartData,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: {
+                  color: 'black' // Dark text color for the legend
+                }
+              }
+            }
+          }
+        };
+        
+        // Render Charts
+        new Chart(document.getElementById('lineChart'), lineChartConfig);
+        new Chart(document.getElementById('pieChart'), pieChartConfig);
+        </script>
+        
+    </div>
+    
+</div>
+<!-- Add Modal -->
+<div id="addModal" class="modal">
+    <div class="modal-content ">
+      <div class="mdel_btn">
+          <button class="close-btn close-add-data " onclick="closeAddModal()"><i class="fa fa-times"></i></button>
+      </div>
+      <!-- <form id="addForm-list"> -->
+      <div class="modal_boiu">
+        <h2 class="add-sub-f">Add Subscription</h2>
+        <div class="input-group">
+            <input type="text" id="addName" placeholder="Name" required />
+            <div class="validation-message" id="nameError">Name cannot contain consecutive spaces or end with a dot</div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="addUserId" placeholder="User ID" required />
+            <div class="validation-message" id="userIdError">User ID must contain at least one letter, one number, and one special character</div>
+        </div>
+        <div class="input-group">
+            <input type="email" id="addEmail" placeholder="Email" required />
+            <div class="validation-message" id="emailError">Email must end with .com, .co, or .in</div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="addAddress" placeholder="Address" required />
+            <div class="validation-message" id="addressError">Please enter your address</div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="addTVId" placeholder="TV ID" required />
+            <div class="validation-message" id="tvIdError">Please enter your TV ID</div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="addReferralId" placeholder="Referral ID" oninput="this.value = this.value.toUpperCase()" required />
+            <div class="validation-message" id="referralIdError">Referral ID must be exactly 6 characters with letters and numbers</div>
+        </div>
+        <div class="input-group">
+            <select id="addSubscription" required onchange="updateExpiryAndRemaining()">
+                <option disabled default value="">Select Subscription Type</option>
+                <option value="Monthly">1 Month</option>
+                <option value="3months">3 Months</option>
+                <option value="6months">6 Months</option>
+            </select>
+            <div class="validation-message" id="subscriptionError">Please select a subscription type</div>
+        </div>
+        <div class="input-group">
+            <input type="date" id="addExpiryDate" required readonly />
+            <div class="validation-message" id="expiryDateError">Please select a subscription type to generate expiry date</div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="addRemaining" placeholder="Remaining Days" required readonly />
+            <div class="validation-message" id="remainingError">Please select a subscription type to calculate remaining days</div>
+        </div>
+        <div class="modal-footer">
+            <button class="confirm-btn" onclick="addData()">Submit</button>
+        </div>
+      </div>
+      <!-- </form> -->
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content ">
+      <div class="mdel_btn">
+        <button class="close-btn close-add-data " onclick="closeEditModal()"><i class="fa fa-times"></i></button>
+      </div>
+        <div class="modal-header">
+            <h2 class="edi_su" >Edit Subscription</h2>
+        </div>
+        <div class="modal-body modal_boiu">
+            <input type="text" id="editName" placeholder="Name" />
+            <input type="text" id="editUserId" placeholder="User ID" />
+            <input type="email" id="editEmail" placeholder="Email" />
+            <input type="text" id="editAddress" placeholder="Address" />
+            <input type="text" id="editTVId" placeholder="TV ID" />
+            <input type="text" id="editReferralId" placeholder="Referral ID" oninput="this.value = this.value.toUpperCase()" />
+            <input type="text" id="editSubscription" placeholder="Subscription Type" />
+            <input type="date" id="editExpiryDate" />
+            <input type="text" id="editRemaining" placeholder="Remaining Days" />
+        </div>
+        <div class="modal-footers">
+            <button class="confirm-btns btn_link_co " onclick="saveEdit()">Save</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- View Modal -->
+<div id="viewModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-footer mdel_btn ">
+        <button class="close-btn close-add-data" onclick="closeViewModal()"><i class="fa fa-times"></i></button>
+      </div>
+        <div class="modal-header">
+            <h2 class="edit-sub" >View Subscription</h2>
+        </div>
+        <div class="modal-body" id="viewModalContent"></div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Confirm Deletion</h2>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete the subscription of <strong id="deleteUserName"></strong>?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="confirm-btd close-btb" onclick="cancelDelete()">No</button>
+            <button class="confirm-btd delete-btb" onclick="confirmDelete()">Yes</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let count = 1;
+    let currentRow = null;
+
+    // -------------------- LOAD DATA FROM LOCAL STORAGE --------------------
+
+    window.onload = function() {
+        const savedData = JSON.parse(localStorage.getItem("tableDatatotalpaidsubscribers")) || [];
+        const table = document.getElementById("subscriptionTable").getElementsByTagName('tbody')[0];
+
+        table.innerHTML = "";
+        count = 1;
+
+        savedData.forEach(data => {
+            addRowToTable(data);
+        });
+    };
+
+    // -------------------- SAVE TO LOCAL STORAGE --------------------
+
+    function saveToLocalStorage() {
+        const table = document.getElementById("subscriptionTable").getElementsByTagName("tbody")[0];
+        const rows = table.getElementsByTagName("tr");
+        const data = [];
+
+        for (let row of rows) {
+            const cells = row.getElementsByTagName("td");
+            data.push({
+                name: cells[1].innerText,
+                userId: cells[2].innerText,
+                email: cells[3].innerText,
+                address: cells[4].innerText,
+                date: cells[5].innerText,
+                tvId: cells[6].innerText,
+                referralId: cells[7].innerText,
+                subscription: cells[8].innerText,
+                expiryDate: cells[9].innerText,
+                remaining: cells[10].innerText
+            });
+        }
+
+        localStorage.setItem("tableDatatotalpaidsubscribers", JSON.stringify(data));
+    }
+
+    // -------------------- OPEN AND CLOSE MODALS --------------------
+
+    function openAddModal() {
+        currentRow = null;
+        clearAddForm(); // Clear inputs before opening
+        document.getElementById("addModal").style.display = "flex";
+    }
+
+    function closeAddModal() {
+        document.getElementById("addModal").style.display = "none";
+    }
+
+    function openEditModal(button) {
+        currentRow = button.closest('tr');
+        const cells = currentRow.getElementsByTagName('td');
+
+        // Populate the Edit Form with existing row data
+        document.getElementById("editName").value = cells[1].innerText;
+        document.getElementById("editUserId").value = cells[2].innerText;
+        document.getElementById("editEmail").value = cells[3].innerText;
+        document.getElementById("editAddress").value = cells[4].innerText;
+        document.getElementById("editTVId").value = cells[6].innerText;
+        document.getElementById("editReferralId").value = cells[7].innerText;
+        document.getElementById("editSubscription").value = cells[8].innerText;
+        document.getElementById("editExpiryDate").value = cells[9].innerText;
+        document.getElementById("editRemaining").value = cells[10].innerText;
+
+        document.getElementById("editModal").style.display = "flex";
+    }
+
+    function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+    }
+
+    function openViewModal(button) {
+        const row = button.closest('tr');
+        const cells = row.getElementsByTagName('td');
+
+        // Display row data in the View Modal
+        const details = `
+            <p><strong>Name:</strong> ${cells[1].innerText}</p>
+            <p><strong>User ID:</strong> ${cells[2].innerText}</p>
+            <p><strong>Email:</strong> ${cells[3].innerText}</p>
+            <p><strong>Address:</strong> ${cells[4].innerText}</p>
+            <p><strong>Date:</strong> ${cells[5].innerText}</p>
+            <p><strong>TV ID:</strong> ${cells[6].innerText}</p>
+            <p><strong>Referral ID:</strong> ${cells[7].innerText}</p>
+            <p><strong>Subscription:</strong> ${cells[8].innerText}</p>
+            <p><strong>Expiry Date:</strong> ${cells[9].innerText}</p>
+            <p><strong>Remaining Days:</strong> ${cells[10].innerText}</p>
+        `;
+        document.getElementById("viewModalContent").innerHTML = details;
+        document.getElementById("viewModal").style.display = "flex";
+    }
+
+    function closeViewModal() {
+        document.getElementById("viewModal").style.display = "none";
+    }
+
+    // -------------------- ADD DATA --------------------
+
+    function clearAddForm() {
+        document.getElementById("addName").value = '';
+        document.getElementById("addUserId").value = '';
+        document.getElementById("addEmail").value = '';
+        document.getElementById("addAddress").value = '';
+        document.getElementById("addTVId").value = '';
+        document.getElementById("addReferralId").value = '';
+        document.getElementById("addSubscription").value = '';
+        document.getElementById("addExpiryDate").value = '';
+        document.getElementById("addRemaining").value = '';
+    }
+
+    function addRowToTable(data) {
+        const table = document.getElementById("subscriptionTable").getElementsByTagName('tbody')[0];
+        const row = table.insertRow();
+
+        row.innerHTML = `
+            <td>${count++}</td>
+            <td>${data.name}</td>
+            <td>${data.userId}</td>
+            <td>${data.email}</td>
+            <td>${data.address}</td>
+            <td>${data.date}</td>
+            <td>${data.tvId}</td>
+            <td>${data.referralId}</td>
+            <td>${data.subscription}</td>
+            <td>${data.expiryDate}</td>
+            <td>${data.remaining}</td>
+            <td class="actions">
+            <div class="dropdown">
+              <i class="fas fa-ellipsis-v action-icon" onclick="toggleDropdown(this)"></i>
+              <div class="dropdown-menu">
+              <div class="drop_flex">
+                <button class="btn view-btn" onclick="openViewModal(this)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <button class="btn edit-btn" onclick="openEditModal(this)"><i class="fas fa-edit" aria-hidden="true" ></i></button>
+                  <button class="btn delete-btn" onclick="openDeleteModal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+          </td>
+        `;
+    }
+
+    function validateName(name) {
+        const nameRegex = /^(?!.*\s{2,})(?!.*\.$).+$/;
+        return nameRegex.test(name);
+    }
+
+    function validateUserId(userId) {
+        const userIdRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/;
+        return userIdRegex.test(userId);
+    }
+
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.(com|co|in)$/;
+        return emailRegex.test(email);
+    }
+
+    function validateReferralId(referralId) {
+        const referralIdRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6}$/;
+        return referralIdRegex.test(referralId);
+    }
+
+    function validateForm() {
+        let isValid = true;
+        const name = document.getElementById("addName").value.trim();
+        const userId = document.getElementById("addUserId").value.trim();
+        const email = document.getElementById("addEmail").value.trim();
+        const address = document.getElementById("addAddress").value.trim();
+        const tvId = document.getElementById("addTVId").value.trim();
+        const referralId = document.getElementById("addReferralId").value.trim();
+        const subscription = document.getElementById("addSubscription").value;
+        const expiryDate = document.getElementById("addExpiryDate").value;
+        const remaining = document.getElementById("addRemaining").value;
+        
+        // Reset all error states
+        document.querySelectorAll('.validation-message').forEach(msg => msg.style.display = 'none');
+        document.querySelectorAll('.input-error').forEach(input => input.classList.remove('input-error'));
+        
+        // Validate Name
+        if (!name) {
+            document.getElementById("nameError").textContent = "Please enter your name";
+            document.getElementById("nameError").style.display = "block";
+            document.getElementById("addName").classList.add("input-error");
+            isValid = false;
+        } else if (!validateName(name)) {
+            document.getElementById("nameError").textContent = "Name cannot contain consecutive spaces or end with a dot";
+            document.getElementById("nameError").style.display = "block";
+            document.getElementById("addName").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("nameError").style.display = "none";
+            document.getElementById("addName").classList.remove("input-error");
+        }
+        
+        // Validate User ID
+        if (!userId) {
+            document.getElementById("userIdError").textContent = "Please enter your user ID";
+            document.getElementById("userIdError").style.display = "block";
+            document.getElementById("addUserId").classList.add("input-error");
+            isValid = false;
+        } else if (!validateUserId(userId)) {
+            document.getElementById("userIdError").textContent = "User ID must contain at least one letter, one number, and one special character";
+            document.getElementById("userIdError").style.display = "block";
+            document.getElementById("addUserId").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("userIdError").style.display = "none";
+            document.getElementById("addUserId").classList.remove("input-error");
+        }
+        
+        // Validate Email
+        if (!email) {
+            document.getElementById("emailError").textContent = "Please enter your email";
+            document.getElementById("emailError").style.display = "block";
+            document.getElementById("addEmail").classList.add("input-error");
+            isValid = false;
+        } else if (!validateEmail(email)) {
+            document.getElementById("emailError").textContent = "Email must end with .com, .co, or .in";
+            document.getElementById("emailError").style.display = "block";
+            document.getElementById("addEmail").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("emailError").style.display = "none";
+            document.getElementById("addEmail").classList.remove("input-error");
+        }
+
+        // Validate Address
+        if (!address) {
+            document.getElementById("addressError").textContent = "Please enter your address";
+            document.getElementById("addressError").style.display = "block";
+            document.getElementById("addAddress").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("addressError").style.display = "none";
+            document.getElementById("addAddress").classList.remove("input-error");
+        }
+
+        // Validate TV ID
+        if (!tvId) {
+            document.getElementById("tvIdError").textContent = "Please enter your TV ID";
+            document.getElementById("tvIdError").style.display = "block";
+            document.getElementById("addTVId").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("tvIdError").style.display = "none";
+            document.getElementById("addTVId").classList.remove("input-error");
+        }
+
+        // Validate Referral ID
+        if (!referralId) {
+            document.getElementById("referralIdError").textContent = "Please enter your referral ID";
+            document.getElementById("referralIdError").style.display = "block";
+            document.getElementById("addReferralId").classList.add("input-error");
+            isValid = false;
+        } else if (!validateReferralId(referralId)) {
+            document.getElementById("referralIdError").textContent = "Referral ID must be exactly 6 characters with letters and numbers";
+            document.getElementById("referralIdError").style.display = "block";
+            document.getElementById("addReferralId").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("referralIdError").style.display = "none";
+            document.getElementById("addReferralId").classList.remove("input-error");
+        }
+
+        // Validate Subscription
+        if (!subscription) {
+            document.getElementById("subscriptionError").textContent = "Please select a subscription type";
+            document.getElementById("subscriptionError").style.display = "block";
+            document.getElementById("addSubscription").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("subscriptionError").style.display = "none";
+            document.getElementById("addSubscription").classList.remove("input-error");
+        }
+
+        // Validate Expiry Date
+        if (!expiryDate) {
+            document.getElementById("expiryDateError").textContent = "Please select a subscription type to generate expiry date";
+            document.getElementById("expiryDateError").style.display = "block";
+            document.getElementById("addExpiryDate").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("expiryDateError").style.display = "none";
+            document.getElementById("addExpiryDate").classList.remove("input-error");
+        }
+
+        // Validate Remaining Days
+        if (!remaining) {
+            document.getElementById("remainingError").textContent = "Please select a subscription type to calculate remaining days";
+            document.getElementById("remainingError").style.display = "block";
+            document.getElementById("addRemaining").classList.add("input-error");
+            isValid = false;
+        } else {
+            document.getElementById("remainingError").style.display = "none";
+            document.getElementById("addRemaining").classList.remove("input-error");
+        }
+        
+        return isValid;
+    }
+
+    function addData() {
+        if (!validateForm()) {
+            return; // Stop if validation fails
+        }
+        
+        const data = {
+            name: document.getElementById("addName").value,
+            userId: document.getElementById("addUserId").value,
+            email: document.getElementById("addEmail").value,
+            address: document.getElementById("addAddress").value,
+            date: new Date().toDateString(),
+            tvId: document.getElementById("addTVId").value,
+            referralId: document.getElementById("addReferralId").value.toUpperCase(),
+            subscription: document.getElementById("addSubscription").value,
+            expiryDate: document.getElementById("addExpiryDate").value,
+            remaining: document.getElementById("addRemaining").value
+        };
+
+        addRowToTable(data);
+        saveToLocalStorage();
+        closeAddModal();
+    }
+
+    function saveEdit() {
+    if (currentRow) {
+        const cells = currentRow.getElementsByTagName('td');
+
+        cells[1].innerText = document.getElementById("editName").value;
+        cells[2].innerText = document.getElementById("editUserId").value;
+        cells[3].innerText = document.getElementById("editEmail").value;
+        cells[4].innerText = document.getElementById("editAddress").value;
+        cells[6].innerText = document.getElementById("editTVId").value;
+        cells[7].innerText = document.getElementById("editReferralId").value.toUpperCase();
+        cells[8].innerText = document.getElementById("editSubscription").value;
+        cells[9].innerText = document.getElementById("editExpiryDate").value;
+        cells[10].innerText = document.getElementById("editRemaining").value;
+
+        saveToLocalStorage(); // Save to localStorage after editing
+        closeEditModal();
+    }
+}
+
+    // -------------------- DELETE DATA --------------------
+
+    function openDeleteModal(button) {
+        currentRow = button.closest('tr');
+        const userName = currentRow.getElementsByTagName('td')[1].innerText;
+        document.getElementById("deleteUserName").innerText = userName;
+        document.getElementById("deleteModal").style.display = "flex";
+    }
+
+    function confirmDelete() {
+        if (currentRow) {
+            currentRow.remove();
+            saveToLocalStorage();
+        }
+        closeDeleteModal();
+    }
+
+    function closeDeleteModal() {
+        document.getElementById("deleteModal").style.display = "none";
+        document.getElementById("cancelDelete").style.display = "none";
+
+    }
+    function cancelDelete() {
+    closeDeleteModal();
+}
+    
+</script>
+
+<style>
+  .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.action-icon {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.action-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: -20px;
+  background-color: #fff;
+  color: #000 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  border-radius: 6px;
+  padding: 10px;
+  z-index: 999999999999;
+  min-width: 150px;
+}
+div.drop_flex{
+  display: flex;
+}
+
+.dropdown-menu button {
+ margin: 7px;
+}
+</style>
+
+<script>
+  function toggleDropdown(icon) {
+  // Close any other open dropdowns
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    if (menu !== icon.nextElementSibling) menu.style.display = 'none';
+  });
+
+  const dropdown = icon.nextElementSibling;
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// Optional: Close dropdown if clicked outside
+document.addEventListener('click', function (e) {
+  if (!e.target.closest('.dropdown')) {
+    document.querySelectorAll('.dropdown-menu').forEach(menu => menu.style.display = 'none');
+  }
+});
+
+</script>
+
+<script>
+  // Allow only uppercase in the search input
+document.getElementById("searchInput").addEventListener("input", function() {
+    this.value = this.value.toUpperCase();
+    searchData(); // Trigger search as the user types
+});
+
+// Search data by Referral ID from the start of the string
+function searchData() {
+    const input = document.getElementById("searchInput").value.trim();
+    const table = document.getElementById("subscriptionTable").getElementsByTagName("tbody")[0];
+    const rows = table.getElementsByTagName("tr");
+    let found = false;
+
+    for (let row of rows) {
+        const referralId = row.getElementsByTagName("td")[7].innerText;
+        if (referralId.startsWith(input)) { // Match from the start of the string
+            row.style.display = ""; // Show row if match found
+            found = true;
+        } else {
+            row.style.display = "none"; // Hide row if no match
+        }
+    }
+
+    // Display "No Data Found" if no match is found
+    document.getElementById("noDataFound").style.display = found ? "none" : "block";
+}
+
+</script>
+
+<style>
+    .search-container {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    #searchInput {
+        padding: 13px 30px; 
+        width: 250px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #noDataFound {
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+
+    .fas {
+        margin-right: 5px;
+    }
+    .container_mod{
+        transition: all 0.3s ease-in-out;
+    }
+   .container_mod.move-left {
+    width: 78% !important;
+    margin-left:260px;
+    }  
+</style>
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const openBar = document.getElementById("openBar");
+  const container_mod = document.querySelector(".container_mod");
+  const overtf = document.querySelector(".overt-f");
+  
+  // Default: sidebar open
+  openBar.classList.add("open");
+  hamburger.classList.add("open");
+  container_mod.classList.add("move-left");
+  overtf.classList.add("move-left");
+  
+  hamburger.addEventListener("click", () => {
+    const isOpen = openBar.classList.contains("open");
+  
+    if (isOpen) {
+      // Collapse sidebar
+      openBar.classList.remove("open");
+      hamburger.classList.remove("open");
+      container_mod.classList.remove("move-left");
+      overtf.classList.remove("move-left");
+    } else {
+      // Open sidebar
+      openBar.classList.add("open");
+      hamburger.classList.add("open");
+      container_mod.classList.add("move-left");
+      overtf.classList.add("move-left");
+    }
+  });
+  
+  </script>
+
+<script>
+// Add this function to calculate expiry date and remaining days
+function updateExpiryAndRemaining() {
+    const subscriptionType = document.getElementById("addSubscription").value;
+    const today = new Date();
+    let expiryDate = new Date();
+    
+    // Calculate expiry date based on subscription type
+    switch(subscriptionType) {
+        case "Monthly":
+            expiryDate.setMonth(today.getMonth() + 1);
+            break;
+        case "3months":
+            expiryDate.setMonth(today.getMonth() + 3);
+            break;
+        case "6months":
+            expiryDate.setMonth(today.getMonth() + 6);
+            break;
+        default:
+            return;
+    }
+    
+    // Format expiry date for input
+    const formattedExpiryDate = expiryDate.toISOString().split('T')[0];
+    document.getElementById("addExpiryDate").value = formattedExpiryDate;
+    
+    // Calculate remaining days
+    const diffTime = expiryDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById("addRemaining").value = diffDays + " days";
+}
+
+// Modify the clearAddForm function to reset expiry and remaining
+function clearAddForm() {
+    document.getElementById("addName").value = '';
+    document.getElementById("addUserId").value = '';
+    document.getElementById("addEmail").value = '';
+    document.getElementById("addAddress").value = '';
+    document.getElementById("addTVId").value = '';
+    document.getElementById("addReferralId").value = '';
+    document.getElementById("addSubscription").value = '';
+    document.getElementById("addExpiryDate").value = '';
+    document.getElementById("addRemaining").value = '';
+}
+</script>
+
+</body>
+</html>

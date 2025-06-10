@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Revenue</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Condensed+One&display=swap" rel="stylesheet">
+  <style>
+    *{
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+    }
+    header.header_tre{
+      width: 100%;
+      margin: auto;
+      position: fixed;
+      z-index: 9999999999;
+    }
+    nav.nav_head{
+      width: 100%;
+      padding-left:30px;
+      padding-right: 30px;
+      margin: auto;
+      display: flex;
+      background-color: whitesmoke;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999999999;
+      box-shadow: 1px 3px 5px 1px #ccc;
+    }
+    img.img_rty{
+      width: 150px;
+      height: 80px;
+    }
+    /* Scroll Container */
+    
+    .scroll-wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px;
+      position: relative; /* Important for positioning the arrows */
+    }
+
+    .scroll-content {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      min-width: max-content;
+    }
+    .monthly{
+      background: linear-gradient(to right, #f9a825, #f28b64) !important;
+      transform: translateY(-2px) ;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.3) !important;
+      transition: all 0.3s ease;
+    }
+    .ida_ok {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+     .ida_ok:hover {
+      transform: translateY(-5px);
+    } 
+
+    .scroll-wrapper::-webkit-scrollbar {
+      height: 0px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    img.img_hty{
+  width: 120px;
+  height: 120px;
+border-radius: 50%;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+div.grid_img_search{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-right: 50px;
+ }
+    
+    .bars {
+      cursor: pointer;
+      width: 30px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .line {
+      width: 100%;
+      height: 5px;
+      background-color: #000;
+      border-radius: 5px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .open_bar {
+      position: fixed;
+      top: 12px;
+      left: -350px;
+      width: 267px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 0px 2px 5px 3px #ccc;
+      color: #fff;
+      transition: left 0.3s ease-in-out;
+      padding: 10px;
+      z-index: -1;
+      margin-top: 80px;
+      text-align: center;
+      border-radius: 10px;
+      overflow: scroll;
+      padding-bottom: 100px;
+    }
+    .open_bar.open {
+      left: 0;
+    }
+    .open_bar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .open_bar li {
+      position: relative;
+      font-size: 16px;
+      margin: 15px 0;
+      font-family: serif;
+    }
+    .open_bar li a {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #000;
+      transform: scale(1);
+      background-image: linear-gradient(255deg, rgba(172,94,233), #4E0AAC);
+      color: #fff;
+      font-weight: 700;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .open_bar li a:hover {
+      transform: scale(1.05);
+    }
+    .signout {
+      background: #d00412 !important;
+      color: #fff !important;
+    }
+    .open_bar .close_btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #9ACBD0;
+      color: #fff;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .open_bar .close_btn:hover {
+      background-color: #7fa2a4;
+    }
+    h3.user {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+    h3.ref {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-size: 17px;
+      font-weight: 400;
+    }
+    span.user {
+      color: #000;
+    }
+    .spaces {
+      transition: transform 0.3s ease;
+    }
+    .spaces.move-left {
+      width: 81%;
+      margin: auto;
+      margin-left: 230px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+    .spaces.move-left .mon-tr {
+      font-size: 16px;
+    }
+    .spaces.move-left .ghuf_h {
+      font-size: 12.5px;
+    }
+    .spaces.move-left .sub-mont {
+      font-size: 14px;
+    }
+    .spaces.move-left .de-da {
+      font-size: 13px;
+    }
+    .spaces.move-left .month_uiy {
+      font-size: 15px;
+    }
+    .imgopili.move-left {
+      width: 80% !important;
+      margin: auto;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+    .payment-way.move-left {
+      width: 81%;
+      margin: auto;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+
+    div.hiopif {
+      width: 100%;
+      margin: auto;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    div.ind {
+      width: 95%;
+      margin: auto;
+    }
+    div.hiopif.move-left {
+      margin-left: 100px;
+    }
+    div.hiopif.move-left div.ind {
+      width: 75%;
+    }
+    .Demo_se.move-left {
+      margin-left: 220px;
+    }
+
+    .container_side {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            gap: 50px;
+        }
+
+        .left-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 45%;
+        }
+
+        .right-side {
+            width: 45%;
+        }
+
+        .graph {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 250px; 
+        }.open_mod {
+                      display: none;
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      background-color: rgba(0,0,0,0.5);
+                      justify-content: center;
+                      align-items: center;
+                      z-index: 1000;
+                  }
+
+                  /* Modal Content */
+                  .model_con {
+                      background-color: #ffffff;
+                      padding: 20px;
+                      border-radius: 12px;
+                      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                      width: 420px;
+                      text-align: center;
+                  }
+
+                  /* Modal Heading */
+                  .Model_na {
+                      font-size: 20px;
+                      font-weight: 600;
+                      color: #222;
+                      margin-bottom: 20px;
+                  }
+
+                  /* Modal Buttons */
+                  .modal-buttons {
+                      display: flex;
+                      justify-content: center;
+                      gap: 15px;
+                  }
+                    .modal-no{
+                      background-color: #d00412 !important;
+                    }
+                  .modal-no, .modal-yes {
+                      padding: 10px 20px;
+                      background-color: #461B9B;
+                      color: #ffffff;
+                      border-radius: 8px;
+                      font-size: 16px;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+                  }
+
+                  .modal-no:hover {
+                      background-color: #6B46B2;
+                  }
+
+                  .modal-yes:hover {
+                      background-color: #6B46B2;
+                  }
+img.img_hty{
+  width: 80px;
+  height: 80px;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+
+        canvas {
+            width: 100% !important; /* Make canvas take up 100% width */
+            height: 100% !important; /* Make canvas take up 100% height */
+        }
+
+
+  </style>
+</head>
+<body>
+  <div class="view">
+    <div class="helo">
+      <div class="hai">
+        <header class="header_tre">
+          <nav class="nav_head">
+            <div class="grid_img_search">
+              <div class="img_na">
+                <img class="img_rty" src="ATS_Logo-removebg-preview.png" title="title" />
+              </div>
+              <div class="bars" id="hamburger">
+                <div class="line line1"></div>
+                <div class="line line2"></div>
+                <div class="line line3"></div>
+              </div>
+            </div>
+           <div class="scroll-wrapper" id="scrollContainer">
+              <div class="scroll-content">
+                <a class="ida_ok monthly" href="monthlyrev.html"><i class="fas fa-calendar-alt"></i> Monthly Revenue </a>
+                <a class="ida_ok" href="monthlycommision.html"><i class="fas fa-coins"></i> Monthly Commission </a>
+                <a class="ida_ok" href="dailyrev.html"><i class="fas fa-clock"></i> Daily Revenue </a>
+                <a class="ida_ok" href="dailycommision.html"><i class="fas fa-dollar-sign"></i> Daily Commission </a>
+                <a class="ida_ok" href="monthlysubscribers.html"><i class="fas fa-users"></i> Monthly Subscribers Numbers </a>
+                <a class="ida_ok" href="dailypaidsubsriberslist.html"><i class="fas fa-user-check"></i> Daily Subscribers Numbers</a>
+                <a class="ida_ok" href="dailydemosubscriberslistdemo.html"><i class="fas fa-user-plus"></i> Daily Demo Subscribers Numbers </a>
+              </div>
+            </div>
+            <div class="open_bar" id="openBar">
+              <ul class="ul_hammer">
+                <div class="hai_use">
+                  <img class="img_hty" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww" alt="Female User Icon" itemprop="contentUrl" />
+                </div>
+                <ul>
+                  <li class="open_hammer">
+                    <h3 class="user">
+                      <span class="user"><i class="fas fa-user"></i> User id:</span> Astro16
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <h3 class="ref">
+                      <span class="user"><i class="fas fa-link"></i> Referral id:</span> As897R3
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="mainuser.html"><i class="fas fa-users"></i> Main Users List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="tablecontrol.html"><i class="fas fa-table"></i> Table Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="dailypaidsubsriberslist.html"><i class="fas fa-calendar-day"></i> Daily Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="totalpaidsubscriberslist.html"><i class="fas fa-calendar-alt"></i> Total Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="dailylistdemo.html"><i class="fas fa-clipboard-list"></i> Daily List Demo Subscribers</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="payment.html"><i class="fas fa-credit-card"></i> Payment Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="signinpagecontrol.html"><i class="fas fa-key"></i> Sign in Page Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="index.html"><i class="fas fa-home"></i> Home</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer signout" href="#"><i class="fas fa-sign-out-alt"></i> Signout</a>
+                  </li>
+                </ul>
+                <!-- <button class="close_btn" id="closeBar">X</button> -->
+              </ul>
+            </div>
+          </nav>
+        </header>
+      </div>
+    </div>
+  </div>
+
+  <div class="open_mod" id="signOutModal">
+    <div class="model_con">
+        <h1 class="Model_na">Are you sure you want to logout?</h1>
+        <div class="modal-buttons">
+          <span class="modal-yes">Yes</span>
+            <span class="modal-no">No</span>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Get elements
+  const signOutLink = document.querySelector('.signout');
+  const signOutModal = document.getElementById('signOutModal');
+  const modalNo = document.querySelector('.modal-no');
+  const modalyes = document.querySelector('.modal-yes');
+  
+  // Open modal on click
+  signOutLink.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default link behavior
+      signOutModal.style.display = 'flex';
+  });
+
+  // Close modal on 'No' click
+  modalNo.addEventListener('click', () => {
+      signOutModal.style.display = 'none';
+  });
+  modalyes.addEventListener('click', () => {
+      signOutModal.style.display = 'none';
+  });
+
+  // Close modal if clicking outside of modal content
+  window.addEventListener('click', (e) => {
+      if (e.target === signOutModal) {
+          signOutModal.style.display = 'none';
+      }
+  });
+</script>
+
+  <div class="width_class">
+    <div class="mass_cent">
+  
+      <style>
+
+        /* Cards Grid */
+        .cards {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 25px;
+          margin-bottom: 50px;
+        }
+    
+        .card {
+          background: linear-gradient(135deg, #ffffff, #f9f9f9);
+          border-radius: 18px;
+          padding: 20px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          transition: transform 0.3s ease;
+          justify-content: space-around;
+          border-top: 6px solid ;
+        }
+    
+        .card:hover {
+          transform: translateY(-5px);
+        }
+    
+    
+        .card:nth-child(1) { border-top-color: #9EC6F3; }
+        .card:nth-child(2) { border-top-color: #7FA1C3; }
+        .card:nth-child(3) { border-top-color: #7BD3EA; }
+        .card:nth-child(4) { border-top-color: #BDDDE4; }
+
+        .card:nth-child(1):hover { background: #9EC6F3; }
+        .card:nth-child(2):hover { background: #7FA1C3; }
+        .card:nth-child(3):hover { background: #7BD3EA; }
+        .card:nth-child(4):hover { background: #BDDDE4; }
+
+
+        .card:hover .label{
+          color: #fff;
+        }
+    
+        .card:hover .value{
+          color: #fff;
+        }
+
+        .icon-circle {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 22px;
+          flex-shrink: 0;
+        }
+    
+        .matter-icon-list {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+    
+        .label {
+          font-weight: bold;
+          font-size: 20px;
+          color: #333;
+          margin-bottom: 10px;
+        }
+    
+        .value {
+          font-size: 1.6rem;
+          font-weight: bold;
+          color: #222;
+        }
+    
+        /* Chart Section */
+        .chart-section {
+          background: #fff;
+          padding: 30px;
+          border-radius: 18px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+          margin-bottom: 40px;
+        }
+    
+        canvas#barChart {
+          max-height: 380px;
+          width: 100% !important;
+        }
+        canvas#pieChart {
+          max-height: 380px !important;
+          width: 100% !important;
+        }
+        h2 {
+          color: #444;
+          margin-bottom: 20px;
+        }
+        .charts-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 30px;
+    }
+
+    .chart-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .chart-box h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    canvas {
+      width: 100% !important;
+      max-height: 360px;
+    }
+        div.banner-header{
+              /* background: linear-gradient(135deg, #003366, #607d8b); */
+              background-image: url("https://assets.kpmg.com/is/image/kpmg/kpmg-texture-au-dark-blue-purple-pink-circles:cq5dam.web.2000.500");
+    background-position: center center;
+    background-size: cover; 
+    object-fit: fill;
+    font-weight: 700;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    height: auto; 
+    width: auto;
+    box-shadow: 1px 1px 3px #ccc;
+      padding: 12px 24px;
+      border-radius: 5px;
+      margin-bottom: 30px;
+    }
+        h1.banner-dashboard{
+          text-align: center;
+          color: #fff;
+        }
+        div.width_mon{
+          width: 100%;
+          margin: auto;
+        }
+        div.width_monh{
+          width: 90%;
+          margin:auto;
+          padding-top: 110px;
+        }
+        .hu{
+          text-align: center;
+        }
+        .width_lp{
+          width: 200% !important;
+        }
+        .width_lk{
+          width: 100% !important;
+        }
+        p.banner_over{
+          color: #fff;
+          text-align: center;
+          margin-top: 15px;
+          margin-bottom: 10px;
+        }
+        div.card_grid_con{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          overflow: hidden;
+        }
+        .icon_flex_iy{
+          background-color: #cccccc2b;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 150px;
+          height: 150px;
+          margin-left: -80px;
+          border-radius: 50%;
+        }
+        .icon{
+          margin-left: 60px;
+          font-size: 40px;
+        }
+       div.card-width{
+        width: 100%;
+        margin: auto;
+       }
+       div.card-sect{
+        width: 100%;
+        margin: auto;
+       }
+      </style>
+
+     
+    <div class="width_mon">
+      <div class="width_monh">
+
+        <div class="wid_io">
+          <div class="wid_ioi">
+            <div class="banner-header">
+              <h1 class="banner-dashboard"> 📊 Monthly Revenue </h1>
+              <p class="banner_over" >Overview of your sales, customer growth, and business performance</p>
+            </div>
+          </div>
+        </div>
+  
+  
+    <!-- Stylish Cards with Horizontal Layout -->
+     <div class="card-width">
+      <div class="card-sect">
+        <div class="cards">
+          <div class="card">
+            <div class="icon-circle">💰</div>
+            <div class="matter-icon-list">
+              <div class="label">Total Revenue</div>
+              <div class="value">$56,200</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="icon-circle">🧑‍🤝‍🧑</div>
+            <div class="matter-icon-list">
+              <div class="label">New Customers</div>
+              <div class="value">1,240</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="icon-circle">↩️</div>
+            <div class="matter-icon-list">
+              <div class="label">Refunds</div>
+              <div class="value">$1,200</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="icon-circle">📦</div>
+            <div class="matter-icon-list">
+              <div class="label">Subscriptions</div>
+              <div class="value">320</div>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div> 
+  
+    <!-- Bar Chart Section -->
+    <div class="grid-display">
+      <div class="charts-section">
+        <div class="chart-box">
+          <h3>📉 Revenue Trend (Line)</h3>
+          <canvas id="lineChart"></canvas>
+        </div>
+        
+        <div class="chart-box">
+          <h3>📊 Revenue Distribution</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>📈 Revenue Over the Year</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>👥 Customer Segments</h3>
+          <canvas id="doughnutChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+
+      </div>
+    </div>
+
+          
+    
+    <script>
+      // Bar Chart
+      new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+          datasets: [{
+            label: 'Revenue ($)',
+            data: [8000, 12000, 15000, 10000, 11000, 9500, 13400, 12000, 11500, 14000, 12500, 16000],
+            backgroundColor: [
+            'rgba(255, 99, 132, 0.8)',    // Pink
+            'rgba(54, 162, 235, 0.8)',    // Blue
+            'rgba(255, 206, 86, 0.8)',    // Yellow
+            'rgba(75, 192, 192, 0.8)',    // Teal
+            'rgba(153, 102, 255, 0.8)',   // Purple
+            'rgba(255, 159, 64, 0.8)',    // Orange
+            'rgba(199, 199, 199, 0.8)',   // Gray
+            'rgba(83, 102, 255, 0.8)',    // Indigo
+            'rgba(40, 159, 64, 0.8)',     // Green
+            'rgba(255, 182, 193, 0.8)',   // Light Pink
+            'rgba(78, 205, 196, 0.8)',    // Turquoise
+            'rgba(255, 99, 71, 0.8)'      // Tomato
+          ],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          plugins: {legend: {
+      position: 'bottom'
+    }},
+          scales: {
+            y: { beginAtZero: true },
+            x: {}
+          }
+        }
+      });
+  
+      // Pie Chart
+      new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+          labels: ['Subscriptions', 'Refunds', 'New Customers', 'Other'],
+          datasets: [{
+            data: [320, 1200, 1240, 700],
+            backgroundColor: ['#FF9999', '#99CCFF', '#99FFCC', '#FFD699']
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+  
+      // Line Chart
+      new Chart(document.getElementById('lineChart'), {
+        type: 'line',
+        data: {
+          labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+          datasets: [{
+            label: 'Revenue Trend',
+            data: [8000, 8200, 8700, 8600, 9000, 9100, 9400, 9600, 10000, 11000, 11500, 12000],
+            borderColor: '#673ab7',
+            fill: false,
+            tension: 0.3
+          }]
+        },
+        options: {
+          plugins: { plugins: {legend: {
+      position: 'bottom'
+    }},},
+          scales: {
+            y: { beginAtZero: false }
+          }
+        }
+      });
+  
+      // Doughnut Chart
+      new Chart(document.getElementById('doughnutChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Enterprise', 'SMBs', 'Individuals'],
+          datasets: [{
+            data: [500, 800, 400],
+            backgroundColor: ['#03A9F4', '#4CAF50', '#FFC107']
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+    </script>
+
+  </div>
+  </div>    
+
+  <style>
+    .container_uyt {
+      width: 100%;
+      margin: auto;
+    }
+  
+    .container_side {
+      width: 90%;
+      margin: auto;
+      padding-top: 40px;
+    }
+  
+    .left-side {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 0px; 
+      width: 100%;       
+    }
+  
+    .graph_side {
+      width: 95%;       /* Adjusted width for side-by-side layout */
+      margin-bottom: 20px;
+      box-shadow: 1px 5px 10px #ccc;
+      padding: 15px 30px;
+      border-radius: 5px;
+      height: auto !important;
+    }
+  
+    #graph1, #graph2 {
+      height: 400px;   
+    }
+    .mass_cent{
+  transition: all 0.3s ease-in-out;
+  width: auto;
+  padding-bottom: 40px;
+  }
+    .mass_cent.move-left{
+    margin-left: 220px;
+
+}
+
+
+  </style>
+  
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const openBar = document.getElementById("openBar");
+    const closeBar = document.getElementById("closeBar");
+    const mass_cent = document.querySelector(".mass_cent");
+
+    hamburger.addEventListener("click", () => {
+      openBar.classList.toggle("open");
+      mass_cent.classList.toggle("move-left");
+    });
+
+    closeBar.addEventListener("click", () => {
+      openBar.classList.remove("open");
+      mass_cent.classList.toggle("move-left");
+      
+    });
+  </script>
+
+</body>
+</html>

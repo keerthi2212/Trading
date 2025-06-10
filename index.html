@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Condensed+One&display=swap" rel="stylesheet">
+  <style>
+  *{
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+    }
+    header.header_tre{
+      width: 100%;
+      margin: auto;
+      position: fixed;
+      z-index: 9999999999;
+    }
+    nav.nav_head{
+      width: 100%;
+      padding-left:30px;
+      padding-right: 30px;
+      margin: auto;
+      display: flex;
+      background-color: whitesmoke;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999999999;
+      box-shadow: 1px 3px 5px 1px #ccc;
+    }
+    img.img_rty{
+      width: 150px;
+      height: 80px;
+    }
+    /* Scroll Container */
+    
+    .scroll-wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px;
+      position: relative; /* Important for positioning the arrows */
+    }
+
+    .scroll-content {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      min-width: max-content;
+    }
+
+    .ida_ok {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+     .ida_ok:hover {
+      transform: translateY(-5px);
+    }
+
+    .scroll-wrapper::-webkit-scrollbar {
+      height: 0px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    img.img_hty{
+  width: 120px;
+  height: 120px;
+border-radius: 50%;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+div.grid_img_search{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-right: 50px;
+ }
+    
+    .bars {
+      cursor: pointer;
+      width: 30px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .line {
+      width: 100%;
+      height: 5px;
+      background-color: #000;
+      border-radius: 5px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .open_bar {
+      position: fixed;
+      top: 12px;
+      left: -350px;
+      width: 267px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 0px 2px 5px 3px #ccc;
+      color: #fff;
+      transition: left 0.3s ease-in-out;
+      padding: 10px;
+      z-index: -1;
+      margin-top: 80px;
+      text-align: center;
+      border-radius: 10px;
+      overflow: scroll;
+      padding-bottom: 100px;
+    }
+    .open_bar.open {
+      left: 0;
+    }
+    .open_bar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .open_bar li {
+      position: relative;
+      font-size: 16px;
+      margin: 15px 0;
+      font-family: serif;
+    }
+    .open_bar li a {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #000;
+      transform: scale(1);
+      background-image: linear-gradient(255deg, rgba(172,94,233), #4E0AAC);
+      color: #fff;
+      font-weight: 700;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .open_bar li a:hover {
+      transform: scale(1.05);
+    }
+    .signout {
+      background: #d00412 !important;
+      color: #fff !important;
+    }
+    .open_bar .close_btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #9ACBD0;
+      color: #fff;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .open_bar .close_btn:hover {
+      background-color: #7fa2a4;
+    }
+    h3.user {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+    h3.ref {
+      color: #000;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-size: 17px;
+      font-weight: 400;
+    }
+    span.user {
+      color: #000;
+    }
+    
+    .container_side {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            gap: 50px;
+        }
+
+        .left-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 45%;
+        }
+
+        .right-side {
+            width: 45%;
+        }
+
+        .graph {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 250px; 
+        }
+
+        canvas {
+            width: 100% !important; /* Make canvas take up 100% width */
+            height: 100% !important; /* Make canvas take up 100% height */
+        }
+    .open_mod {
+                      display: none;
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      background-color: rgba(0,0,0,0.5);
+                      justify-content: center;
+                      align-items: center;
+                      z-index: 1000;
+                  }
+
+                  /* Modal Content */
+                  .model_con {
+                      background-color: #ffffff;
+                      padding: 20px;
+                      border-radius: 12px;
+                      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                      width: 420px;
+                      text-align: center;
+                  }
+
+                  /* Modal Heading */
+                  .Model_na {
+                      font-size: 20px;
+                      font-weight: 600;
+                      color: #222;
+                      margin-bottom: 20px;
+                  }
+
+                  /* Modal Buttons */
+                  .modal-buttons {
+                      display: flex;
+                      justify-content: center;
+                      gap: 15px;
+                  }
+                    .modal-no{
+                      background-color: #d00412 !important;
+                    }
+                  .modal-no, .modal-yes {
+                      padding: 10px 20px;
+                      background-color: #461B9B;
+                      color: #ffffff;
+                      border-radius: 8px;
+                      font-size: 16px;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+                  }
+
+                  .modal-no:hover {
+                      background-color: #6B46B2;
+                  }
+
+                  .modal-yes:hover {
+                      background-color: #6B46B2;
+                  }
+img.img_hty{
+  width: 80px;
+  height: 80px;
+  /* box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5); */
+}
+div.img_na{
+  animation: imgtop 1s ease-in-out;
+}
+@keyframes imgtop {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+div.bars{
+  animation: hambuger 1s ease-in-out;
+}
+@keyframes hambuger {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.ida_ok {
+  animation: scrollslide 0.6s forwards;
+  opacity: 0;
+}
+@keyframes scrollslide {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%); /* Start from below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* End at normal position */
+    }
+}
+
+/* Apply delay to each item */
+.ida_ok:nth-child(1) {
+    animation-delay: 0s;
+}
+.ida_ok:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.ida_ok:nth-child(3) {
+    animation-delay: 0.2s;
+}
+.ida_ok:nth-child(4) {
+    animation-delay: 0.3s;
+}
+.ida_ok:nth-child(5) {
+    animation-delay: 0.4s;
+}
+.ida_ok:nth-child(6) {
+    animation-delay: 0.5s;
+}
+.ida_ok:nth-child(7) {
+    animation-delay: 0.6s;
+}
+div.banner-header{
+  animation: banneran 1s ease-in-out;
+}
+@keyframes banneran {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%); /* Start from below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* End at normal position */
+    }
+}
+.graph_side-kl{
+animation: graphkl 1s ease-in-out;
+}
+@keyframes graphkl {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%); /* Start from below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); /* End at normal position */
+    }
+}
+.graph_side-lk{
+  animation: graphlk 1s ease-in-out;
+}
+@keyframes graphlk {
+    0% {
+        opacity: 0;
+        transform: translateX(100%); /* Start from below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); /* End at normal position */
+    }
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="view">
+    <div class="helo">
+      <div class="hai">
+        <header class="header_tre">
+          <nav class="nav_head">
+            <div class="grid_img_search">
+              <div class="img_na">
+                <img class="img_rty" src="ATS_Logo-removebg-preview.png" title="title" />
+              </div>
+              <div class="bars" id="hamburger">
+                <div class="line line1"></div>
+                <div class="line line2"></div>
+                <div class="line line3"></div>
+              </div>
+            </div>
+            <div class="scroll-wrapper" id="scrollContainer">
+              <div class="scroll-content">
+                <a class="ida_ok" href="monthlyrev.html"><i class="fas fa-calendar-alt"></i> Monthly Revenue </a>
+                <a class="ida_ok" href="monthlycommision.html"><i class="fas fa-coins"></i> Monthly Commission </a>
+                <a class="ida_ok" href="dailyrev.html"><i class="fas fa-clock"></i> Daily Revenue </a>
+                <a class="ida_ok" href="dailycommision.html"><i class="fas fa-dollar-sign"></i> Daily Commission </a>
+                <a class="ida_ok" href="monthlysubscribers.html"><i class="fas fa-users"></i> Monthly Subscribers Numbers </a>
+                <a class="ida_ok" href="dailypaidsubsriberslist.html"><i class="fas fa-user-check"></i> Daily Subscribers Numbers</a>
+                <a class="ida_ok" href="dailydemosubscriberslistdemo.html"><i class="fas fa-user-plus"></i> Daily Demo Subscribers Numbers </a>
+              </div>
+            </div>
+            <div class="open_bar" id="openBar">
+              <ul class="ul_hammer">
+                <div class="hai_use">
+                  <img class="img_hty" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww" alt="Female User Icon" itemprop="contentUrl" />
+                </div>
+                <ul>
+                  <li class="open_hammer">
+                    <h3 class="user">
+                      <span class="user"><i class="fas fa-user"></i> User id:</span> Astro16
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <h3 class="ref">
+                      <span class="user"><i class="fas fa-link"></i> Referral id:</span> As897R3
+                    </h3>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="mainuser.html"><i class="fas fa-users"></i> Main Users List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="tablecontrol.html"><i class="fas fa-table"></i> Table Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="dailypaidsubsriberslist.html"><i class="fas fa-calendar-day"></i> Daily Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="totalpaidsubscriberslist.html"><i class="fas fa-calendar-alt"></i> Total Paid Subscribers List</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="dailylistdemo.html"><i class="fas fa-clipboard-list"></i> Daily List Demo Subscribers</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="payment.html"><i class="fas fa-credit-card"></i> Payment Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="signinpagecontrol.html"><i class="fas fa-key"></i> Sign in Page Control</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer" href="index.html"><i class="fas fa-home"></i> Home</a>
+                  </li>
+                  <li class="open_hammer">
+                    <a class="hammer signout" href="#"><i class="fas fa-sign-out-alt"></i> Signout</a>
+                  </li>
+                </ul>
+                <!-- <button class="close_btn" id="closeBar">X</button> -->
+              </ul>
+            </div>
+          </nav>
+        </header>
+      </div>
+    </div>
+  </div>
+
+  <div class="open_mod" id="signOutModal">
+    <div class="model_con">
+        <h1 class="Model_na">Are you sure you want to logout?</h1>
+        <div class="modal-buttons">
+          <span class="modal-yes">Yes</span>
+            <span class="modal-no">No</span>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Get elements
+  const signOutLink = document.querySelector('.signout');
+  const signOutModal = document.getElementById('signOutModal');
+  const modalNo = document.querySelector('.modal-no');
+  const modalyes = document.querySelector('.modal-yes');
+  
+  // Open modal on click
+  signOutLink.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default link behavior
+      signOutModal.style.display = 'flex';
+  });
+
+  // Close modal on 'No' click
+  modalNo.addEventListener('click', () => {
+      signOutModal.style.display = 'none';
+  });
+  modalyes.addEventListener('click', () => {
+      signOutModal.style.display = 'none';
+  });
+
+  // Close modal if clicking outside of modal content
+  window.addEventListener('click', (e) => {
+      if (e.target === signOutModal) {
+          signOutModal.style.display = 'none';
+      }
+  });
+</script>
+
+
+<div class="width_class">
+    <div class="mass_cent">
+
+      <style>
+        div.pink_blue_wi{
+          display: grid;
+          grid-template-columns: auto auto auto;
+          justify-content: space-around;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          gap: 40px;
+        }
+        .mass_cent.move-left div.pink_blue_wi{
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          justify-content: center;
+          gap: 40px;
+}
+
+        div.hover-text-blue,
+        div.hover-text-pink,
+        div.hover-text-green {
+          display: flex;
+          align-items: center;
+        }
+        #blue_cricle{
+          color: #F5921B;
+          font-size: 10px;
+          margin-right: 5px;
+        }
+        #pink_cricle{
+          color: #AFDC8F;
+          font-size: 10px;
+          margin-right: 5px;
+        }
+        #green_cricle{
+          color:#4682B8 ;
+          font-size: 10px;
+          margin-right: 5px;
+        }
+        svg {
+          width: 100%;
+          height: 350px;
+          transform: rotate(-90deg); 
+          z-index: 1;
+        }
+        .bg {
+          /* stroke: #e0e0e0; */
+        }         
+        .progress-pink {
+          stroke: #AFDC8F   ;
+          stroke-linecap: round;
+          transform: rotate(-40deg);
+          transform-origin: center;
+          transition: stroke-dashoffset 1s ease;
+        }
+        
+        .progress-pink:hover{
+          transform: rotate(-40deg) scale(1.01);
+        }
+      
+        .progress-blue {
+          stroke: #F5921B   ;
+          stroke-linecap: round;
+          transform: rotate(-40deg);
+          transform-origin: center;
+          transition: stroke-dashoffset 1s ease;
+        }
+        .progress-blue:hover{
+          transform: rotate(-40deg) scale(1.01);
+        }
+        .progress-green {
+          stroke: #4682B8  ;
+          stroke-linecap: round;
+          transform: rotate(-0deg);
+          transform-origin: center;
+          transition: stroke-dashoffset 1s ease;
+        }
+        .progress-green:hover{
+          transform: rotate(-0deg) scale(1.01);
+        }
+    
+        .circle-container {
+      position: relative;
+      display: inline-block;
+    }
+    .mass_cent.move-left .circle-container{
+      display: flex;
+      gap: 20px;
+    }
+    div.banner-header{
+              /* background: linear-gradient(135deg, #003366, #607d8b); */
+              background-image: url("https://assets.kpmg.com/is/image/kpmg/kpmg-texture-au-dark-blue-purple-pink-circles:cq5dam.web.2000.500");
+    background-position: center center;
+    background-size: cover; 
+    object-fit: fill;
+    font-weight: 700;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    height: auto; 
+    width: auto;
+    box-shadow: 1px 1px 3px #ccc;
+      padding: 12px 24px;
+      border-radius: 5px;
+    }
+        h1.banner-dashboard{
+          text-align: center;
+          color: #fff;
+        }
+    div.wid_io{
+      width: 100%;
+      margin: auto;
+    }
+    div.wid_ioi{
+      width: 90%;
+      margin: auto;
+      padding-top: 110px;
+    }
+    </style>
+    
+      <div class="width_class">
+        <div class="mass_cent">
+      
+          <div class="wid_io">
+            <div class="wid_ioi">
+              <div class="banner-header">
+                <h1 class="banner-dashboard">  <i class="fas fa-network-wired" style="margin-right: 8px; color: #fff;"></i> Trade Matrix </h1>
+              </div>
+            </div>
+          </div>
+    
+          <div class="container_uyt">
+            <div class="container_side">
+              <div class="left-side">
+                <div class="graph_side-kl">
+                  <canvas id="myChart"></canvas>
+                </div>
+        
+                <div class="graph_side-lk">
+                  <div class="circle-container">
+                    
+                    <div class="svg_process">
+                      <svg width="200" height="200" viewBox="0 0 200 200">
+        
+                        <circle class="bg" cx="100" cy="100" r="70" stroke-width="13" fill="transparent"/>
+                        <circle class="bg" cx="100" cy="100" r="90" stroke-width="13" fill="transparent"/>
+                        <circle class="bg" cx="100" cy="100" r="50" stroke-width="13" fill="transparent"/> 
+                    
+                        <circle class="progress-blue" cx="100" cy="100" r="90" stroke-width="13" fill="transparent" 
+                            stroke-dasharray="534" stroke-dashoffset="134"/>
+                        <circle class="progress-pink" cx="100" cy="100" r="70" stroke-width="13" fill="transparent" 
+                            stroke-dasharray="440" stroke-dashoffset="110"/>
+                        <circle class="progress-green" cx="100" cy="100" r="50" stroke-width="13" fill="transparent" 
+                            stroke-dasharray="314" stroke-dashoffset="150"/> 
+                      </svg>
+                    </div>
+                  
+                
+                    <div class="pink_blue_wi">
+                      <div class="hover-text-blue"> <i id="blue_cricle" class="fa fa-circle"></i> Jupiter Wagons Ltd</div>
+                      <div class="hover-text-pink"> <i id="pink_cricle" class="fa fa-circle"></i> Natco Pharma Ltd</div>
+                      <div class="hover-text-green"> <i id="green_cricle" class="fa fa-circle"></i> Tata Motors Ltd</div>
+                    </div>
+        
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <style>
+            .second_gra{
+              width: 100%;
+              margin: auto;
+            }
+            .second_polk{
+              width: 90%;
+              margin: auto;
+              display: flex;
+              align-items: center;
+              gap: 40px;
+              margin-top: 30px;
+              padding-bottom: 10px;
+              overflow: hidden;
+            }
+            div.graph_side-k {
+              width: 50%;
+              background-color: #fff;
+              box-shadow: 1px 5px 10px #ccc;
+              padding: 15px 30px;
+              border-radius: 5px;
+              height: 400px;
+    }
+    
+     #barChart,#pieChart {
+      width: 100%;
+      max-width: 100%;
+      height: 350px; /* Set both to the same height */
+      max-height: 350px !important;
+    }
+    #barChart{
+      height: 550px; /* Set both to the same height */
+      max-height: 550px !important;
+    }
+    
+    /* Initially hide the charts */
+    .graph_scr {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.graph_scr.show-animation {
+    opacity: 1;
+    transform: translateX(0);
+}
+.graph_soo {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.graph_soo.show-animation {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+          </style>
+    
+           <section class="move_up-scroll">
+            <div class="second_gra">
+              <div class="second_polk">
+                        <!-- Bar Graph -->
+                <div class="graph_side-k graph_scr ">
+                  <!-- <h2>Trading Assets Bar Graph</h2> -->
+                  <canvas id="barChart"></canvas>
+                </div>
+      
+                <!-- Pie Graph -->
+                <div class="graph_side-k graph_soo ">
+                  <!-- <h2>Trading Assets Pie Chart</h2> -->
+                  <canvas id="pieChart"></canvas>
+                </div>
+              </div>
+             </div>
+           </section>
+
+           <script>
+          document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show-animation');
+                observer.unobserve(entry.target); // Stop observing after animation is triggered
+            }
+        });
+    }, {
+        threshold: 0.5 // Trigger when 50% of the section is in view
+    });
+
+    const targets = document.querySelectorAll('.graph_scr, .graph_soo');
+    targets.forEach(target => {
+        observer.observe(target);
+    });
+});
+
+</script>
+    
+    <script>
+      // Bar Chart
+      const barCtx = document.getElementById('barChart').getContext('2d');
+      const barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Gold', 'Silver', 'Oil', 'Iron', 'Bonds'],
+          datasets: [{
+            label: 'Trading Value',
+            data: [200, 150, 180, 220, 100],
+           // backgroundColor: ['#6977E0', '#BDC3C7', '#E74C3C', '#3498DB', '#2ECC71'],
+           // borderColor: ['#6977E0', '#BDC3C7', '#E74C3C', '#3498DB', '#2ECC71'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+            title: {
+              display: true,
+              text: 'Trading Assets Bar Chart'
+            }
+          }
+        }
+      });
+    
+      // Pie Chart
+      const pieCtx = document.getElementById('pieChart').getContext('2d');
+      const pieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Gold', 'Silver', 'Oil', 'Iron', 'Bonds'],
+          datasets: [{
+            label: 'Asset Distribution',
+            data: [30, 20, 15, 25, 10], 
+            backgroundColor: ['gold ', '#A0CBE8', '#ED7B7B ', '#59A14F', '#4E79A7'],
+            borderColor: ['gold ', '#A0CBE8', '#ED7B7B ', '#59A14F', '#4E79A7 '],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+            title: {
+              display: true,
+              text: 'Trading Assets Pie Chart'
+            }
+          }
+        }
+      });
+    </script>
+    
+      </div>
+      </div>    
+
+<section class="indicator-an">      
+      <div class="indicators">
+        <div class="indicator_width">
+             <div class="idc">
+                <h1 class="Indoc">Indicators</h1>
+             </div>
+             <div class="ind_grid">
+
+                <style>
+        div.indicators{
+          width: 100%;
+          margin: auto;
+        }
+        .indicator_width{
+          width: 90%;
+          margin: auto;
+          margin-bottom: 40px;
+          padding-top: 30px;
+        }
+        h1.Indoc{
+          text-align: center;
+          font-size: 40px;
+          margin-top: 10px;
+          font-family: "Outfit", sans-serif;
+          letter-spacing: 2px;
+        }
+                  .indicators-control {
+                    border-radius: 8px;
+                    width: 100%;
+                    margin: 30px auto;
+                  }
+              
+                  .indicators-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    gap: 20px;
+                    text-align: center;
+                  }
+              
+                  .indicator-box {
+                    border: 2px solid #ddd;
+                    border-radius: 8px;
+                    padding: 15px;
+                    background-color: #fafafa;
+                    position: relative;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                  }
+              
+                  .indicator-title {
+                    font-weight: bold;
+                    margin-bottom: 15px;
+                    color: #000;
+                    font-size: 25px;
+                  }
+              
+                  .indicator-image {
+                    width: 100%;
+                    max-height: 180px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                    transition: transform 0.3s ease;
+                  }
+              
+                  .indicator-image:hover {
+                    transform: scale(1.03);
+                  }
+              
+                  .text_edit_mat {
+                    text-align: center;
+                    margin-top: 10px;
+                    font-size: 18px;
+                    color: #333;
+                    padding: 10px;
+                    border-radius: 6px;
+                  }
+              
+                  .btn_inc {
+                    display: inline-block;
+                    margin-top: 10px;
+                    padding: 8px 12px;
+                    border: none;
+                    border-radius: 5px;
+                    color: #0B57D0;
+                    cursor: pointer;
+                    font-size: 18px;
+                    background: transparent;
+                    float: right;
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    font-weight: 700;
+                    position: relative;
+                    overflow: hidden;
+                  }
+
+                  /* Hover underline effect */
+                  .btn_inc::after {
+                    content: "";
+                    position: absolute;
+                    width: 0;
+                    height: 2px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #1E1E2F;
+                    transition: width 0.3s ease-in-out;
+                  }
+
+                  .btn_inc:hover::after {
+                    width: 100%;
+                  }
+
+              
+                  .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 9999999999;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: auto;
+                    background-color: rgba(0,0,0,0.7);
+                  }
+              
+                  .modal-content {
+                    background-color: #fff;
+                    margin: 5% auto;
+                    padding: 20px;
+                    border-radius: 10px;
+                    width: 90%;
+                    max-width: 600px;
+                  }
+              
+                  .close {
+                    float: right;
+                    font-size: 20px;
+                    cursor: pointer;
+                    background-color: red;
+                    color: #fff;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    transition: all 0.3s ease-in-out;
+                  }
+              
+                  .close:hover {
+                    transform: scale(1.03);
+                  }
+              
+                  .modal-image {
+                    width: 100%;
+                    max-height: 200px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    margin-bottom: 15px;
+                    margin-top: 10px;
+                  }
+              
+                  .modal-text {
+                    font-size: 18px;
+                    line-height: 1.6;
+                    font-family: 'Times New Roman', Times, serif;
+                  }
+                  .indicator-tit{
+                    text-align: center;
+                    font-size: 30px;
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                  }
+                  .indicators {
+                      opacity: 0;
+                      transform: translateY(100px);
+                      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+                  }
+
+                  .indicators.show-indicator-animation{
+                      opacity: 1;
+                      transform: translateY(0);
+                  }
+                </style>
+              </head>
+              <body>
+              
+              <div class="indicators-control">
+                <!-- <h2 style="text-align:center; color:#6c5ce7;">Indicators Control</h2> -->
+                <div class="indicators-grid">
+              
+                  <!-- Indicator 1 -->
+                  <div class="indicator-box">
+                    <div class="indicator-title">Momentum Booster</div>
+                    <img src="https://s3.tradingview.com/b/bmkCcCIL_mid.png" class="indicator-image" alt="Momentum Image"/>
+                    <div class="text-edit">
+                      <p class="text_edit_mat" >
+                        Detects bullish/bearish momentum trends.
+                        Works with RSI and MACD signals.
+                        Highlights reversal zones using volume.
+                        Alerts traders of early entry signals.
+                        Helps avoid fake breakouts and traps.
+                        Trusted in high-volatility environments.
+                      </p>
+                    </div>
+                    <button class="btn_inc" onclick="openModal('modal1')">Read More</button>
+                  </div>
+              
+                  <!-- Indicator 2 -->
+                  <div class="indicator-box">
+                    <div class="indicator-title">Breakout Scanner</div>
+                    <img src="https://www.a1trading.com/wp-content/uploads/2023/11/f899181e2f47f33bb18c18ab1801a63e.webp" class="indicator-image" alt="Breakout Image"/>
+                    <div class="text-edit">
+                      <p class="text_edit_mat" >
+                        Detects breakout points with high precision.
+                        Uses Bollinger Bands and volume spikes.
+                        Confirms trend continuation or reversal.
+                        Best for intraday and scalping setups.
+                        Includes breakout and pullback zones.
+                        Widely used in crypto and forex markets.
+                      </p>
+                    </div>
+                    <button class="btn_inc" onclick="openModal('modal2')">Read More</button>
+                  </div>
+              
+                  <!-- Indicator 3 -->
+                  <div class="indicator-box">
+                    <div class="indicator-title">Reversal Master</div>
+                    <img src="https://optiver.com/wp-content/uploads/2023/11/AdobeStock_604288309-scaled.jpeg" class="indicator-image" alt="Reversal Image"/>
+                    <div class="text-edit">
+                      <p class="text_edit_mat" >
+                        Pinpoints potential market tops/bottoms.
+                        Integrates candlestick patterns and RSI.
+                        Warns against overbought/oversold zones.
+                        Great for swing and position trading.
+                        Filters out false reversal traps.
+                        Combines signal strength and volume.
+                      </p>
+                    </div>
+                    <button class="btn_inc" onclick="openModal('modal3')">Read More</button>
+                  </div>
+              
+                </div>
+              </div>
+              
+              
+              
+              <script>
+                function openModal(modalId) {
+                  document.getElementById(modalId).style.display = "block";
+                }
+              
+                function closeModal(modalId) {
+                  document.getElementById(modalId).style.display = "none";
+                }
+              
+                window.onclick = function(event) {
+                  if (event.target.classList.contains("modal")) {
+                    event.target.style.display = "none";
+                  }
+                };
+              </script>
+              
+              <script>
+               document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show-indicator-animation');
+                observer.unobserve(entry.target); // Stop observing after animation is triggered
+            }
+        });
+    }, {
+        threshold: 0.5 // Trigger when 50% of the section is in view
+    });
+
+    // Observe each indicator box element
+    const targets = document.querySelectorAll('.indicators');
+    targets.forEach(target => {
+        observer.observe(target);
+    });
+});
+
+      
+      </script>
+
+             </div>
+        </div>
+      </div>
+
+</section>      
+
+
+<!-- Modal 1 -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal1')">&times;</span>
+    <div class="indicator-tit">Momentum Booster</div>
+    <img src="https://images.contentstack.io/v3/assets/bltc23b87e0fef43b66/blt1747078efa0ccbf6/664798545fd9af749c70de91/32_T3-HEADER-02.jpg?format=pjpg&auto=webp&quality=90" class="modal-image" alt="Modal Image"/>
+    <div class="modal-text">
+      <p>
+        Detects bullish and bearish momentum instantly.
+        Integrates volume-based divergence checks.
+        Ideal for trend-following and swing trades.
+        Shows historical zones of price compression.
+        Avoids false breakouts using confirmation logic.
+        Combines RSI with MACD histogram filters.
+        Highlights risk/reward zones for traders.
+        Real-time dashboard alerts enabled.
+        Backtested on multi-year datasets.
+        Adjustable sensitivity for different assets.
+        Performance optimized for crypto markets.
+        Supports alerts via email and webhooks.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2 -->
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal2')">&times;</span>
+    <div class="indicator-tit">Breakout Scanner</div>
+    <img src="https://www.a1trading.com/wp-content/uploads/2023/11/f899181e2f47f33bb18c18ab1801a63e.webp" class="modal-image" alt="Modal Image"/>
+    <div class="modal-text">
+      <p>
+        Breakout Scanner tracks consolidation and impulse zones.
+        Offers real-time alerts on breakout levels.
+        Supports crypto, forex, and indices scanning.
+        Works best with 15-min and 1H timeframes.
+        Confirms breakouts with volume acceleration.
+        Optional trailing stop-loss suggestions.
+        Ideal for prop firm challenge traders.
+        Integrates price action and volatility range.
+        Gives entry/exit signals with success rate %.
+        Shows squeeze patterns on key pairs.
+        Detects liquidity grabs before moves.
+        Perfect for breakout and retest strategies.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3 -->
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal3')">&times;</span>
+    <div class="indicator-tit">Reversal Master</div>
+    <img src="https://optiver.com/wp-content/uploads/2023/11/AdobeStock_604288309-scaled.jpeg" class="modal-image" alt="Modal Image"/>
+    <div class="modal-text">
+      <p>
+        Reversal Master helps catch early trend reversals.
+        Integrates Stochastic RSI + Engulfing patterns.
+        Alerts overbought and oversold swing areas.
+        Provides high-confidence reversal signals.
+        Best for swing traders and day traders.
+        Prevents entry during trap candles.
+        Scans historical support/resistance zones.
+        Tracks price momentum shifts in real time.
+        90% accuracy during sideways markets.
+        Custom settings for trend strength filter.
+        Works across crypto, stocks, and forex.
+        Advanced alerts for institutional blocks.
+      </p>
+    </div>
+  </div>
+</div>
+
+<section class="payment_mode">
+      <div class="payment_mer">
+        <div class="paymenty-may">
+          <style>
+            div.payment_mer{
+              width: 100%;
+              margin: auto;
+            }
+            div.paymenty-may{
+              width: 90%;
+              margin: auto;
+            }
+            div.gate-way{
+              display: flex;
+              justify-content: center;
+              align-items: end;
+              gap: 30px;
+              margin-bottom: 40px;
+            }
+             div.option_plans{
+               border: 1px solid #000;
+               border-radius: 10px;
+               width: 100%;
+               overflow: hidden;
+               height: 560px;
+               transition: all 0.3s ease-in-out;
+               z-index: 9;
+             }
+
+             div.option_plans:hover{
+              box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1);
+              transform: translateY(-10px);
+             }
+             div.plans_edit{
+              padding: 10px;
+             }
+             div.plan_name{
+              background-color: #3674B5;
+              border-radius: 10px;
+              padding: 10px 20px;
+             }
+             h1.class-na{
+              text-align: center;
+              color: #fff;
+              font-size: 30px;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              font-weight: 700;
+             }
+          div.hide-res{
+            overflow: hidden;
+          }
+          div.showing_mo{
+            margin-top: 10px;
+            margin-left: 15px;
+          }
+          div.month_sub{
+            margin-left: 15px;
+          }
+          
+          h3.monthly_p{
+            /* text-align: center; */
+            font-size: 22px;
+            font-weight: 400;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 5px;
+            margin-top: 10px;
+            font-weight: 600;
+          }
+          p.price_tag{
+            font-size: 18px;
+            /* font-weight: 700; */
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+          }
+          hr.hr_line{
+            display: block;
+            margin-block-start: 0.5em;
+            margin-block-end: 0.5em;
+            margin-inline-start: auto;
+            margin-inline-end: auto;
+            unicode-bidi: isolate;
+            overflow: hidden;
+            border-style: inset;
+            border-width: 1px;
+            margin-top: 10px;
+          }
+          ul.hello_side,
+          ul.mon-du{
+            margin-left: 30px;
+          }
+          ul.hello_side li.li_tra{
+            margin-top: 4px;
+            margin-bottom: 4px;
+            text-decoration: none;
+            list-style: none;
+          }
+          ul.mon-du li.mon-dura{
+            margin-top: 4px;
+            margin-bottom: 4px;
+          }
+          div.price_list {
+            display: flex;
+            justify-content: center;
+          }
+        div.litr {
+          margin-top: 25px;
+          margin-bottom: 15px;
+        }
+        
+        h1.price_hu{
+          font-size: 30px;
+          color: #282828;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          letter-spacing: 2px;
+        }
+        .mass_cent.move-left .preO-ci {
+          font-size: 25px !important;
+        }
+        
+        #fa-moneyi{
+          font-size: 23px;
+        }
+        div.hlio_button{
+          width: 100%;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        div.hlio_buttonss{
+          margin-top: 22px !important;
+        }
+        a.sub_sbs{
+          width: 90%;
+          background-color: #0056b3;
+          padding: 15px 30px;
+          text-align: center;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 10px;
+          border: 1px solid transparent;
+          transition: all 0.3s ease-in-out;
+        }
+        a.sub_sbs:hover{
+          border: 1px solid #0056b3;
+          background-color: #fff;
+          color: #0056b3;
+          transform: scale(1.03);
+          box-shadow: 1px 5px 10px #ccc;
+        }
+        div.plain_out{
+        background-color: #0B57D0;
+         padding-top: 10px;
+         padding-bottom: 15px;
+        }
+        h1.pop_mos{
+          font-size: 20px;
+          color:  #fff;
+          text-align: center;
+        }
+        div.juh_oi{
+          /* background-color: #2E5A8C; */
+          color: #000;
+          padding: 10px;
+          margin-top: 10px;
+          margin-bottom: 15px;
+          border-radius: 10px;
+        }
+        h1.price{
+          font-size: 35px;
+          text-align: center;
+          color: #461B9B;
+          /* text-transform: uppercase; */
+        }
+        /* .month_opl{
+          margin-top: 15px;
+        }
+        .pric_lik{
+          margin-top: 20px;
+        } */
+         #check_fa{
+          color: green;
+         }
+         #X-fa{
+          color: red;
+         }
+
+        
+div.badge{
+  position: absolute;
+    rotate: -45deg;
+    margin-top: -41px;
+    margin-right: 0px;
+    margin-left: -36px;
+}
+.star-badge {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+  animation: zoomPulse 1.5s ease-in-out infinite;
+}
+
+/* Zoom animation */
+@keyframes zoomPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Zoom in slightly */
+  }
+}
+
+
+
+.most_pop {
+  width: 100%;
+  display: block;
+}
+
+.badge-text {
+  position: absolute;
+    top: 48%;
+    left: 38%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+img.most_pop{
+  width: 110px;
+}
+
+.payment_mer {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.payment_mer.show-payment-animation{
+  opacity: 1;
+  transform: translateY(0);
+}
+           </style>
+        
+           <div class="hide-res">
+             <div class="payment-way">
+               <div class="payment-gate">
+                  <div class="hi_op">
+                    <div class="juh_oi">
+                       <h1 class="price">Trading Plans</h1>
+                    </div>
+                  </div>
+                  <div class="gate-way">
+                    
+                    <div class="option_plans">
+                       <div class="plans_edit">
+                          <div class="plan_name">
+                            <h1 class="class-na preO-ci">Basic Trading Plan</h1>
+                          </div>
+                          <div class="showing_mo">
+                            <h3 class="monthly_p">Features Included:</h3>
+                              <ul class="hello_side" >
+                                <li class="li_tra"> <i id="check_fa" class="fa fa-check"></i> Access to Basic Market Data</li>
+                                <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Basic Charting Tools</li>
+                                <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> 1 Trade at a Time</li>
+                                <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Standard Customer Support</li>
+                                <li class="li_tra" ><i id="X-fa" class="fas fa-times"></i> Daily Market Analysis Reports</li>
+                                <li class="li_tra" > <i id="X-fa" class="fas fa-times"></i> Alerts and Notifications</li>
+                                <li class="li_tra" > <i id="X-fa" class="fas fa-times"></i> Priority Customer Support</li>
+
+                            </ul>
+                          </div>
+        
+                          <div class="month_sub">
+                            <h3 class="monthly_p">Duration</h3>
+                            <ul class="mon-du">
+                              <li class="mon-dura">Monthly Subscription</li>
+                            </ul>
+                          </div>
+        
+                          <div class="month_sub month_opl ">
+                            <h3 class="monthly_p">Support</h3>
+                            <ul class="mon-du">
+                              <li class="mon-dura">24/7 Chat Support</li>
+                            </ul>
+                          </div>
+        
+                          <div class="price_list pric_lik">
+                              <div class="litr">
+                                  <h1 class="price_hu"> <i id="fa-moneyi" class="fa fa-rupee"></i>99</h1>
+                              </div>
+                          </div>
+        
+                          <div class="hlio_button">
+                            <a class="sub_sbs" href="#">Subscribe Now</a>
+                          </div>
+                          
+                       </div>
+                    </div>
+        
+                    <div class="option_plans option_plans_height">
+                      
+                      <div class="badge">
+                        <div class="star-badge">
+                         <img src="star.png" alt="Star Badge" class="most_pop">
+                         <span class="badge-text">Most <br> Popular</span>
+                        </div>
+                      </div>
+
+                      <div class="plans_edit">
+                         <div class="plan_name">
+                           <h1 class="class-na preO-ci">Pro Trading Plan</h1>
+                         </div>
+                         <div class="showing_mo">
+                           <h3 class="monthly_p">Features Included:</h3>
+                             <ul class="hello_side" >
+                               <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Real-time Market Data</li>
+                               <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Advanced Charting Tools</li>
+                               <li class="li_tra fiu_li " ><i id="check_fa" class="fa fa-check"></i> Access to Premium Trading Strategies</li>
+                               <li class="li_tra" ><i id="check_fa" class="fa fa-check"></i> 1 Active Trade at a Time</li>
+                               <li class="li_tra" ><i id="X-fa" class="fas fa-times"></i> Priority Customer Support</li>
+                               <li class="li_tra" ><i id="X-fa" class="fas fa-times"></i> Alerts and Notifications</li>
+                               <li class="li_tra" ><i id="X-fa" class="fas fa-times"></i> Priority Customer Support</li>
+                           </ul>
+                         </div>
+                         <!-- <div class="hr-pay">
+                           <hr class="hr_line" >
+                         </div> -->
+                         <div class="month_sub">
+                           <h3 class="monthly_p">Duration</h3>
+                           <ul class="mon-du">
+                             <li class="mon-dura">Monthly Subscription</li>
+                           </ul>
+                         </div>
+        
+                         <div class="month_sub">
+                           <h3 class="monthly_p">Support</h3>
+                           <ul class="mon-du">
+                             <li class="mon-dura">24/7 Email And Chat Support</li>
+                           </ul>
+                         </div>
+        
+                         <div class="price_list">
+                             <div class="litr">
+                                 <h1 class="price_hu"> <i id="fa-moneyi" class="fa fa-rupee"></i>149</h1>
+                             </div>
+                         </div>
+        
+                         <div class="hlio_button">
+                           <a class="sub_sbs" href="#">Subscribe Now</a>
+                         </div>
+        
+                      </div>
+                   </div>
+        
+                   <div class="option_plans">
+                    <div class="plans_edit">
+                       <div class="plan_name">
+                         <h1 class="class-na preO-ci">Premium Trading Plan</h1>
+                       </div>
+                       <div class="showing_mo">
+                         <h3 class="monthly_p">Features Included:</h3>
+                           <ul class="hello_side" >
+                             <li class="li_tra"> <i id="check_fa" class="fa fa-check"></i> Real-time Market Data</li>
+                              <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Advanced Charting Tools</li>
+                              <li class="li_tra fiu_li "> <i id="check_fa" class="fa fa-check"></i> Access to Premium Trading Strategies</li>
+                              <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Daily Market Analysis Reports</li>
+                              <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Alerts and Notifications</li>
+                              <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> 1 Active Trade at a Time</li>
+                              <li class="li_tra" > <i id="check_fa" class="fa fa-check"></i> Priority Customer Support</li>
+                         </ul>
+                       </div>
+                       <!-- <div class="hr-pay">
+                         <hr class="hr_line" >
+                       </div> -->
+                       <div class="month_sub">
+                         <h3 class="monthly_p">Duration</h3>
+                         <ul class="mon-du">
+                           <li class="mon-dura">Monthly Subscription</li>
+                         </ul>
+                       </div>
+        
+                       <div class="month_sub">
+                         <h3 class="monthly_p">Support</h3>
+                         <ul class="mon-du">
+                           <li class="mon-dura">24/7 Email Support and Live Chat</li>
+                         </ul>
+                       </div>
+        
+                       <div class="price_list">
+                           <div class="litr">
+                               <h1 class="price_hu"> <i id="fa-moneyi" class="fa fa-rupee"></i>199</h1>
+                           </div>
+                       </div>
+        
+                       <div class="hlio_button hlio_buttonss ">
+                         <a class="sub_sbs" href="#">Subscribe Now</a>
+                       </div>
+                       
+                    </div>
+                  </div>
+        
+                  </div>
+               </div>
+             </div>
+           </div>
+        </div>
+      </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+      if (entry.isIntersecting) {
+         entry.target.classList.add('show-payment-animation');
+         observer.unobserve(entry.target); // Stop observing after animation is triggered
+      }
+      });
+      }, {
+      threshold: 0.5 // Trigger when 50% of the section is in view
+      });
+      
+      // Observe each indicator box element
+      const targets = document.querySelectorAll('.payment_mer');
+      targets.forEach(target => {
+      observer.observe(target);
+      });
+      });
+      
+      
+      </script>
+
+    </section>
+
+    <section class="demo_list">
+
+      <div class="demo_settings">
+        <div class="demo_set">
+         
+  <style>
+  div.demo_settings{
+    width: 100%;
+    margin: auto;
+  }
+  div.demo_set{
+    width: 90%;
+    margin: auto;
+    margin-bottom: 40px;
+  }
+
+    .panel-container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      flex: 1;
+      min-width: 280px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2.Demso {
+      color: #5e2caf;
+      font-size: 22px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+
+    .card input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .card input[type="text"] {
+      background: #f9f9f9;
+    }
+    div.hid_dem{
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .hidetg{
+      padding: 12px 14px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .card button.hidetg {
+      background-color: #6c5ce7;
+      color: white;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .saveco{
+      width: 100%;
+      padding: 12px 14px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+      background-color: #6c5ce7;
+      color: white;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background-color: #4834d4;
+    }
+    .width_dem{
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      justify-content: center;
+    }
+    .cardanimation1 {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.cardanimation1.show-demo-animation{
+  opacity: 1;
+  transform: translateX(0);
+}
+.cardanimation2 {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.cardanimation2.show-demo-animation{
+  opacity: 1;
+  transform: translateX(0);
+}
+  </style>
+
+  <div class="panel-container">
+    <!-- 🌟 Demo Settings -->
+    <div class="card cardanimation1">
+      <h2 class="Demso" >🎯 Demo Settings</h2>
+      <div class="inp_bt">
+        <input type="text" placeholder="Price Adjustment">
+      </div>
+      
+      <div class="width_dem">
+        <div class="hid_dem">
+          <button class="hidetg" id="toggleBtn">Toggle DEMO Button</button>
+        </div>
+       <div class="hid_btn">
+        <button class="hidetg" onclick="toggleDemoSections(this)">Hide DEMO When Expired</button>
+       </div>
+      </div>
+
+      <script>
+  let isHidden = false;
+
+  function toggleDemoSections(btn) {
+    const inputSection = document.querySelector('.inp_bt');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    isHidden = !isHidden;
+
+    if (inputSection) inputSection.style.display = isHidden ? 'none' : 'block';
+    if (toggleBtn) toggleBtn.style.display = isHidden ? 'none' : 'inline-block';
+
+    // Change button text accordingly
+   // btn.textContent = isHidden ? 'Show DEMO Sections' : 'Hide DEMO When Expired';
+  }
+  </script>
+
+    </div>
+    
+    <!-- 💼 Commission Settings -->
+    <div class="card cardanimation2"> 
+      <h2 class="Demso" >💼 Commission Settings</h2>
+      <input type="text" placeholder="Enter Commission Percentage (%)">
+      <button class="saveco " >Save Commission</button>
+    </div>
+
+  </div>
+
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+      if (entry.isIntersecting) {
+         entry.target.classList.add('show-demo-animation');
+         observer.unobserve(entry.target); // Stop observing after animation is triggered
+      }
+      });
+      }, {
+      threshold: 0.5 // Trigger when 50% of the section is in view
+      });
+      
+      // Observe each indicator box element
+      const targets = document.querySelectorAll('.cardanimation1,.cardanimation2 ');
+      targets.forEach(target => {
+      observer.observe(target);
+      });
+      });
+      
+      
+      </script>
+
+    </section>
+
+
+
+    </div>
+  </div>
+  
+  <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+              const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                datasets: [
+                  {
+                    label: 'Jupiter Wagons Ltd',
+                    data: [65, 59, 80, 81, 56, 55, 40, 70, 75, 60, 50, 90],
+                    fill: false,
+                    borderColor: '#FD79A8',
+                    tension: 0.4
+                  },
+                  {
+                    label: 'Natco Pharma Ltd',
+                    data: [28, 48, 40, 19, 86, 27, 90, 60, 70, 55, 65, 85],
+                    fill: false,
+                    borderColor: '#74B9FF',
+                    tension: 0.4
+                  },
+                  {
+                    label: 'Tata Motors Ltd',
+                    data: [18, 38, 30, 29, 76, 37, 100, 80, 60, 50, 45, 70],
+                    fill: false,
+                    borderColor: '#55EFC4',
+                    tension: 0.4
+                  }
+                ]
+        
+                },
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      display: true,
+                      text: 'Line Chart with Modern Colors'
+                    }
+                  }
+                }
+              });
+        </script>
+
+  
+  <style>
+    .container_uyt {
+      width: 100%;
+      margin: auto;
+    }
+  
+    .container_side {
+      width: 90%;
+      margin: auto;
+      padding-top: 30px;
+    }
+  
+    .left-side {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 0px; 
+      width: 100%; 
+      overflow: hidden;      
+    }
+    .mass_cent.move-left .left-side {
+      grid-template-columns: auto;
+    }
+  
+    .graph_side-kl {
+      width: 95%;
+      margin-bottom: 20px;
+      box-shadow: 1px 5px 10px #ccc;
+      padding: 15px 30px;
+      border-radius: 5px;
+      height: auto !important;
+    }
+    .mass_cent.move-left .graph_side-kl {
+      animation: leftrightg 0.5s ease-in-out;
+      margin-left: 10px;
+    }
+    @keyframes leftrightg {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+    .graph_side-lk {
+      width: 103%;       
+      margin-bottom: 20px;
+      box-shadow: 1px 5px 10px #ccc;
+      padding: 15px 30px;
+      border-radius: 5px;
+      height: auto !important;
+      margin-left: -3%;
+    }
+    .mass_cent.move-left .graph_side-lk{
+      width: 94%;   
+      margin-left: 10px; 
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      animation: rightleftg 0.5s ease-in-out;
+    }
+    @keyframes rightleftg {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(0); }
+    }
+    #graph1, #graph2 {
+      height: 400px;   
+    }
+    .mass_cent{
+  transition: all 0.3s ease-in-out;
+  width: auto;
+  }
+    .mass_cent.move-left{
+    margin-left: 220px;
+
+}
+
+
+  </style>
+  
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const openBar = document.getElementById("openBar");
+    const closeBar = document.getElementById("closeBar");
+    const mass_cent = document.querySelector(".mass_cent");
+
+    hamburger.addEventListener("click", () => {
+      openBar.classList.toggle("open");
+      mass_cent.classList.toggle("move-left");
+    });
+
+    closeBar.addEventListener("click", () => {
+      openBar.classList.remove("open");
+      mass_cent.classList.toggle("move-left");
+      
+    });
+  </script>
+</body>
+</html>
